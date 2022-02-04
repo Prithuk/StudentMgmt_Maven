@@ -1,0 +1,10 @@
+com/prithu/sim/dto/Student.class
+com/prithu/sim/dao/SubjectDao.class
+com/prithu/sim/dao/MarksDao.class
+com/prithu/sim/dto/Marks.class
+com/prithu/simw/controller/UserControllerWeb.class
+com/prithu/sim/dto/User_.class
+com/prithu/sim/repository/UserRepository.class
+com/prithu/sim/dao/UserDao.class
+com/prithu/sim/dto/User.class
+com/prithu/sim/dto/Subject.class

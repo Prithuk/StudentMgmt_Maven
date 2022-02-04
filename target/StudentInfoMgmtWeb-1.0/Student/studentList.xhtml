@@ -1,0 +1,44 @@
+<!--<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:h="http://java.sun.com/jsf/html" 
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <center><h2><h:outputText value="Student Records"/></h2></center>
+
+    <h:form id="StudentForm">
+        <p:commandButton value="create" action="/faces/User/createUser.xhtml?faces-redirect=true" />
+        <h:dataTable id="studentTable" value="#{studentControllerWeb.studentList}" var="s" >
+
+            <h:column>
+                <f:facet name="header">Student ID</f:facet>
+                <h:outputText value="#{s.getsID}" />
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Student Name</f:facet>
+                <h:outputText value="#{s.getsName}" />
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Class</f:facet>
+                <h:outputText value="#{s.getsClass}" />
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Email</f:facet>
+                <h:outputText value="#{s.getsEmail}" />
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Phone</f:facet>
+                <h:outputText value="#{s.getsPhone}" />
+            </h:column>
+
+
+
+        </h:dataTable>
+    </h:form>
+
+</html>-->

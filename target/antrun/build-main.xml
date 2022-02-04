@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="maven-antrun-" default="main"  >
+<target name="main">
+  <exec dir="." executable="sh">
+    <arg line="-c &apos;hg parent | sed &quot;/user:        /d&quot;&apos;"/>
+    <redirector output="src/main/webapp/version.txt" alwayslog="true"/>
+  </exec>
+</target>
+</project>
