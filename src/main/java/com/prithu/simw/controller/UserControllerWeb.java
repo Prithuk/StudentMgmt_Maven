@@ -64,7 +64,6 @@ public class UserControllerWeb implements Serializable {
         userRepository.addNewUser(user);
         this.user = new User();
         loadData();
-
     }
 
     public void beforeEdit(Long id) {

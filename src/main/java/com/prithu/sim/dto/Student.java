@@ -16,67 +16,70 @@ import javax.persistence.Table;
 
 /*
  */
-//@Entity
-//@Table(name = "student")
+@Entity
+@Table(name = "student")
 public class Student implements Serializable {
 
-//    @Id
-//    @Basic(optional = false)
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long sID;
-    private String sName;
-    private int sClass;
-    private String sEmail;
-    private Long sPhone;
+    @Id
+    @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long sid;
+    private String sname;
+    private Integer grade;
+    private String email;
+    private Long phone;
 
-    public Long getsID() {
-        return sID;
+    public Student() {
     }
 
-    public void setsID(Long sID) {
-        this.sID = sID;
+    public Long getSid() {
+        return sid;
     }
 
-    public String getsName() {
-        return sName;
+    public void setSid(Long sid) {
+        this.sid = sid;
     }
 
-    public void setsName(String sName) {
-        this.sName = sName;
+    public String getSname() {
+        return sname;
     }
 
-    public String getsEmail() {
-        return sEmail;
+    public void setSname(String sname) {
+        this.sname = sname;
     }
 
-    public void setsEmail(String sEmail) {
-        this.sEmail = sEmail;
+    public Integer getGrade() {
+        return grade;
     }
 
-    public Long getsPhone() {
-        return sPhone;
+    public void setGrade(Integer grade) {
+        this.grade = grade;
     }
 
-    public void setsPhone(Long sPhone) {
-        this.sPhone = sPhone;
+    public String getEmail() {
+        return email;
     }
 
-    public int getsClass() {
-        return sClass;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public void setsClass(int sClass) {
-        this.sClass = sClass;
+    public Long getPhone() {
+        return phone;
+    }
+
+    public void setPhone(Long phone) {
+        this.phone = phone;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 29 * hash + (int) (this.sID ^ (this.sID >>> 32));
-        hash = 29 * hash + Objects.hashCode(this.sName);
-        hash = 29 * hash + this.sClass;
-        hash = 29 * hash + Objects.hashCode(this.sEmail);
-        hash = 29 * hash + Objects.hashCode(this.sPhone);
+        hash = 59 * hash + Objects.hashCode(this.sid);
+        hash = 59 * hash + Objects.hashCode(this.sname);
+        hash = 59 * hash + Objects.hashCode(this.grade);
+        hash = 59 * hash + Objects.hashCode(this.email);
+        hash = 59 * hash + Objects.hashCode(this.phone);
         return hash;
     }
 
@@ -92,39 +95,28 @@ public class Student implements Serializable {
             return false;
         }
         final Student other = (Student) obj;
-        if (this.sID != other.sID) {
+        if (!Objects.equals(this.sname, other.sname)) {
             return false;
         }
-        if (this.sClass != other.sClass) {
+        if (!Objects.equals(this.email, other.email)) {
             return false;
         }
-        if (!Objects.equals(this.sName, other.sName)) {
+        if (!Objects.equals(this.sid, other.sid)) {
             return false;
         }
-        if (!Objects.equals(this.sEmail, other.sEmail)) {
+        if (!Objects.equals(this.grade, other.grade)) {
             return false;
         }
-        if (!Objects.equals(this.sPhone, other.sPhone)) {
+        if (!Objects.equals(this.phone, other.phone)) {
             return false;
         }
         return true;
     }
 
-    public Student(Long sID, String sName, String sAddress, String sEmail, Long sPhone, int sClass) {
-        this.sID = sID;
-        this.sName = sName;
-        this.sClass = sClass;
-        this.sEmail = sEmail;
-        this.sPhone = sPhone;
-    }
-
-    public Student() {
-
-    }
-
     @Override
     public String toString() {
-        return "Student{" + "sID=" + sID + ", sName=" + sName + ", sClass=" + sClass + ", sEmail=" + sEmail + ", sPhone=" + sPhone + '}';
+        return "Student{" + "sid=" + sid + ", sname=" + sname + ", grade=" + grade + ", email=" + email + ", phone=" + phone + '}';
     }
 
+        
 }

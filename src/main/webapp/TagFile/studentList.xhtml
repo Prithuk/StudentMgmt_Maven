@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui" template="../template.xhtml">
+
+    <ui:define name="content" >
+        <center><h2><h:outputText value="Student Records"/></h2></center>
+
+
+        <h:form id="studentForm">
+            <div class="card crud-demo">
+                <p:growl id="messages" showDetail="true"/>
+
+
+                <center> 
+                    <p:commandButton value="New Student" icon="pi pi-plus" 
+                                     oncomplete="PF('manageProductDialog').show()"
+                                     update="dialogForm" process="@this"
+                                     styleClass="ui-button-success" 
+                                     style="margin-right: .5rem"
+                                     actionListener="#{studentControllerWeb.beforeCreate()}"
+                                     resetValues="true"
+                                     >
+                    </p:commandButton>
+
+
+                </center>
+
+            </div>
+            <center> 
+                <p:dataTable id="studentTable"  
+                             value="#{studentControllerWeb.studentList}" 
+                             filteredValue="#{studentControllerWeb.studentList}"
+                             emptyMessage="No Student found with given criteria"
+                             var="student" 
+                             paginator="true" rows="10"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink}
+                             {PreviousPageLink} {PageLinks} {NextPageLink}
+                             {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15"
+                             >
+                    <h:column>
+                        <f:facet name="header">Student ID</f:facet>
+                        <h:outputText value="#{student.sid}" />
+                    </h:column>
+
+                    <p:column filterBy="#{student.sname}"
+                              sortBy="#{student.sname}" >
+                        <f:facet name="header">Student Name</f:facet>
+                        <h:outputText value="#{student.sname}" />
+                    </p:column>
+
+                    <h:column>
+                        <f:facet name="header">Class</f:facet>
+                        <h:outputText value="#{student.grade}" />
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Email</f:facet>
+                        <h:outputText value="#{student.email}" />
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Phone</f:facet>
+                        <h:outputText value="#{student.phone}" />
+                    </h:column>
+
+                    <p:column>
+                        <f:facet name="header">Edit</f:facet>
+                        <p:commandButton value="edit" 
+                                         oncomplete="PF('manageProductDialog').show()" 
+                                         actionListener="#{studentControllerWeb.beforeEdit(student.sid)}" 
+                                         styleClass="ui-button-raised ui-button-success" 
+                                         update="dialogForm" process="@this"
+                                         >
+                        </p:commandButton> 
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">Delete</f:facet>
+                        <p:commandButton value="delete" 
+                                         action="#{studentControllerWeb.deleteStudent(student)}" 
+                                         update="@form" process="@this"
+                                         > 
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+            </center>
+        </h:form>
+
+        <p:dialog header="Student Registration" showEffect="fade" modal="true"
+                  widgetVar="manageProductDialog" responsive="true" appendTo="@(body)">
+
+            <h:form id='dialogForm'>
+                <p:outputLabel for="usernameAdd"  style="width:100px" 
+                               styleClass="p-d-block" >Student name :</p:outputLabel>
+                <p:inputText id="usernameAdd" value="#{studentControllerWeb.student.sname}" 
+                             required="true" class="form-control" >
+                    <p:ajax update="@this" process="@this" />
+                </p:inputText>
+                <br>
+                </br>
+
+                <p:outputLabel for="gradeadd"  style="width:100px" 
+                               styleClass="p-d-block" >Student Class :</p:outputLabel>
+                <p:inputText id="gradeadd" value="#{studentControllerWeb.student.grade}" 
+                             required="true" class="form-control" >
+                    <p:ajax update="@this" process="@this" />
+                </p:inputText>
+                <br> </br>
+
+                <p:outputLabel for="emailadd"  style="width:100px" 
+                               styleClass="p-d-block" >Student Email :</p:outputLabel>
+                <p:inputText id="emailadd" value="#{studentControllerWeb.student.email}" 
+                             required="true" class="form-control" >
+                    <p:ajax update="@this" process="@this" />
+                </p:inputText>
+                <br> </br>
+
+                <p:outputLabel for="phoneadd"  style="width:100px" 
+                               styleClass="p-d-block" >Student phone :</p:outputLabel>
+                <p:inputText id="phoneadd" value="#{studentControllerWeb.student.phone}" 
+                             required="true" class="form-control" >
+                    <p:ajax update="@this" process="@this" />
+                </p:inputText>
+                <br> </br>
+                <p:commandButton value="Save" icon="pi pi-check" 
+                                 action="#{studentControllerWeb.addStudent()}"
+                                 class="btn btn-success btnWidth"
+                                 styleClass="btn btn-success btnSpace"
+                                 oncomplete="PF('manageProductDialog').hide()"  
+                                 rendered="#{empty studentControllerWeb.student.sid}" 
+                                 update="studentForm" process="@this"
+                                 />
+
+                <p:commandButton value="Update" icon="pi pi-check" 
+                                 action="#{studentControllerWeb.editStudent()}" 
+                                 class="btn btn-success btnWidth" 
+                                 styleClass="btn btn-success btnSpace" 
+                                 oncomplete="PF('manageProductDialog').hide()" 
+                                 rendered="#{not empty studentControllerWeb.student.sid}" 
+                                 update="studentForm" process="@this"
+                                 />
+                <p:commandButton value="Cancel" icon="pi pi-times" 
+                                 oncomplete="PF('manageProductDialog').hide()"
+                                 class="ui-button-secondary"
+                                 update="studentForm" process="@this"
+                                 />
+            </h:form>
+        </p:dialog>
+    </ui:define>
+</ui:composition>
+

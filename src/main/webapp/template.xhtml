@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </h:head>
+
+    <h:body>
+        <pe:layout fullPage="true"  options="#{mainLayout.layoutOptions}" >
+            <pe:layoutPane position="north">
+                <ui:insert name="top" >
+                    North
+                </ui:insert>
+            </pe:layoutPane>
+
+            <pe:layoutPane position="west">
+                <ui:insert name="left" >
+                    
+                </ui:insert>
+            </pe:layoutPane>
+
+            <pe:layoutPane position="east">
+                <ui:insert name="right" >
+                    Right
+                </ui:insert>
+            </pe:layoutPane>
+
+            <pe:layoutPane position="center">
+                <ui:insert name="content" >
+                    Center
+                </ui:insert>
+            </pe:layoutPane>
+
+            <pe:layoutPane position="south">
+                <ui:insert name="footer" >
+                    <center>
+                        Copyright © 2006-2022 MvnRepository. All rights reserved.
+                        Web site developed by @Lion
+                        Contact me @Instagram : lion__prithu
+                    </center>
+                </ui:insert>
+            </pe:layoutPane>
+        </pe:layout>
+
+    </h:body>
+</html>

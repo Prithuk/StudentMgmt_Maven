@@ -20,6 +20,6 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>faces/User/userList.xhtml</welcome-file>
+        <welcome-file>faces/TagFile/homepage.xhtml</welcome-file>
     </welcome-file-list>
 </web-app>
