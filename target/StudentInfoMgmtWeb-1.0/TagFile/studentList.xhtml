@@ -40,11 +40,12 @@
                              {PreviousPageLink} {PageLinks} {NextPageLink}
                              {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="5,10,15"
+                             paginatorPosition="top"
                              >
-                    <h:column>
+                    <p:column>
                         <f:facet name="header">Student ID</f:facet>
                         <h:outputText value="#{student.sid}" />
-                    </h:column>
+                    </p:column>
 
                     <p:column filterBy="#{student.sname}"
                               sortBy="#{student.sname}" >
@@ -52,20 +53,20 @@
                         <h:outputText value="#{student.sname}" />
                     </p:column>
 
-                    <h:column>
+                    <p:column>
                         <f:facet name="header">Class</f:facet>
                         <h:outputText value="#{student.grade}" />
-                    </h:column>
+                    </p:column>
 
-                    <h:column>
+                    <p:column>
                         <f:facet name="header">Email</f:facet>
                         <h:outputText value="#{student.email}" />
-                    </h:column>
+                    </p:column>
 
-                    <h:column>
+                    <p:column>
                         <f:facet name="header">Phone</f:facet>
                         <h:outputText value="#{student.phone}" />
-                    </h:column>
+                    </p:column>
 
                     <p:column>
                         <f:facet name="header">Edit</f:facet>

@@ -9,9 +9,10 @@
     <ui:define name="content" >
         <center><h2><h:outputText value="User Records"/></h2></center>
 
-        <h:form id="userForm">
+        <h:form id="userForm" >
+
             <div class="card crud-demo">
-                <p:growl id="messages" showDetail="true"/>
+
 
                 <center> 
                     <p:commandButton value="New User" icon="pi pi-plus" 
@@ -39,6 +40,7 @@
                              {PreviousPageLink} {PageLinks} {NextPageLink}
                              {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="5,10,15"
+                             paginatorPosition="top"
                              >
                     <p:column >
                         <f:facet name="header">User ID</f:facet>
@@ -52,13 +54,13 @@
                         <h:outputText value="#{user.name}" />
                     </p:column>
 
-                    <h:column>
+                    <p:column>
                         <f:facet name="header">Password</f:facet>
                         <h:outputText value="#{user.password}" />
-                    </h:column>
+                    </p:column>
 
                     <p:column>
-                        <f:facet name="header">Edit</f:facet>
+                        <f:facet name="header">Action</f:facet>
                         <p:commandButton value="edit" 
                                          oncomplete="PF('manageProductDialog').show()" 
                                          actionListener="#{userControllerWeb.beforeEdit(user.id)}" 
@@ -66,15 +68,13 @@
                                          update="dialogForm" process="@this"
                                          >
                         </p:commandButton> 
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">Delete</f:facet>
                         <p:commandButton value="delete" 
                                          action="#{userControllerWeb.deleteUser(user)}" 
                                          update="@form" process="@this"
                                          > 
                         </p:commandButton>
                     </p:column>
+
                 </p:dataTable>
             </center>
         </h:form>
@@ -83,29 +83,40 @@
                   widgetVar="manageProductDialog" responsive="true">
 
             <h:form id='dialogForm'>
+                <p:growl id="msg" showDetail="true" sticky="true" />
+
                 <p:outputLabel for="usernameAdd"  style="width:100px" 
                                styleClass="p-d-block" >User name :</p:outputLabel>
-                <p:inputText id="usernameAdd" value="#{userControllerWeb.user.name}" 
-                             required="true" class="form-control" >
-                    <p:ajax update="@this" process="@this" />
+                <p:inputText id="usernameAdd"
+                             value="#{userControllerWeb.user.name}" 
+                             required="true"
+                             class="form-control" >
+                    <f:validateLength minimum="4"/>
+                    <p:ajax update="@this msg" process="@this" />
                 </p:inputText>
                 <br>
                 </br>
                 <p:outputLabel for="passwordAdd" style="width:100px" styleClass="p-d-block">Password:</p:outputLabel>
                 <p:password id="passwordAdd" value="#{userControllerWeb.user.password}" 
-                            required="true" class="form-control" >
+                            required="true"
+                            feedback="true"
+                            inline="true"
+                            redisplay="true"
+                            toggleMask="true"
+                            class="form-control" >
+                    <f:validateLength minimum="6" />
                     <p:ajax update="@this" process="@this" />
-
                 </p:password> 
 
                 <br> </br>
                 <p:commandButton value="Save" icon="pi pi-check" 
-                                 action="#{userControllerWeb.addUser()}"
+                                 action="#{userControllerWeb.addUser}"
                                  class="btn btn-success btnWidth"
                                  styleClass="btn btn-success btnSpace"
                                  oncomplete="PF('manageProductDialog').hide()"  
                                  rendered="#{empty userControllerWeb.user.id}" 
-                                 update="userForm" process="@this"
+                                 update="userForm" 
+                                 process="@this"
                                  />
 
                 <p:commandButton value="Update" icon="pi pi-check" 

@@ -3,110 +3,111 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:p="http://primefaces.org/ui" template="../template.xhtml">
-
-
-    <ui:define name="top" >
-        <h:outputText value="Test Records"/>
-    </ui:define>
+                xmlns:p="http://primefaces.org/ui" 
+                template="../template.xhtml">
 
     <ui:define name="content" >
+        <center><h2><h:outputText value="User Records"/></h2></center>
+
         <h:form id="userForm">
             <div class="card crud-demo">
                 <p:growl id="messages" showDetail="true"/>
 
-                <p:toolbar>
-                    <p:toolbarGroup>
-                        <center> 
-                            <p:commandButton value="New User" icon="pi pi-plus" 
-                                             oncomplete="PF('manageProductDialog').show()"
-                                             update="dialogForm" process="@this"
-                                             styleClass="ui-button-success" 
-                                             style="margin-right: .5rem"
-                                             actionListener="#{userControllerWeb.beforeCreate()}"
-                                             resetValues="true"
-                                             >
-                            </p:commandButton>
-                        </center>
-                    </p:toolbarGroup>
-                </p:toolbar>
+                <center> 
+                    <p:commandButton value="Add Marks" icon="pi pi-plus" 
+                                     oncomplete="PF('manageProductDialog').show()"
+                                     update="dialogForm" process="@this"
+                                     styleClass="ui-button-success" 
+                                     style="margin-right: .5rem"
+                                     actionListener="#{userControllerWeb.beforeCreate()}"
+                                     resetValues="true"
+                                     >
+                    </p:commandButton>
+                </center>
+                <br>
+                </br>
+
             </div>
             <center> 
-                <h:dataTable id="userTable"  value="#{userControllerWeb.userList}"  var="user" >
-                    <h:column>
-                        <f:facet name="header">User ID</f:facet>
-                        <h:outputText value="#{user.id}" />
-                    </h:column>
+                <p:dataTable id="marksTable" 
+                             value="#{marksControllerWeb.markList}" 
+                             var="marks" 
+                             emptyMessage="No student found with given criteria"
+                             filteredValue="#{marksControllerWeb.markList}"
+                             paginator="true" rows="10"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink}
+                             {PreviousPageLink} {PageLinks} {NextPageLink}
+                             {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15"
+                             paginatorPosition="top"
+                             >
+                    <p:column >
+                        <f:facet name="header">Student ID</f:facet>
+                        <h:outputText value="#{marks.student}"  />
 
-                    <h:column>
-                        <f:facet name="header">User Name</f:facet>
-                        <h:outputText value="#{user.name}" />
-                    </h:column>
+                    </p:column>
 
-                    <h:column>
-                        <f:facet name="header">Password</f:facet>
-                        <h:outputText value="#{user.password}" />
-                    </h:column>
+                    <p:column >
+                        <f:facet name="header"> Subject ID</f:facet>
+                        <h:outputText value="#{marks.subject}" />
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">Subject Marks</f:facet>
+                        <h:outputText value="#{marks.subMarks}" />
+                    </p:column>
 
                     <p:column>
                         <f:facet name="header">Edit</f:facet>
                         <p:commandButton value="edit" 
                                          oncomplete="PF('manageProductDialog').show()" 
-                                         actionListener="#{userControllerWeb.beforeEdit(user.id)}" 
+                                         actionListener="#{studentControllerWeb.beforeEdit(marks.id)}" 
                                          styleClass="ui-button-raised ui-button-success" 
                                          update="dialogForm" process="@this"
                                          >
                         </p:commandButton> 
                     </p:column>
-                    <p:column>
-                        <f:facet name="header">Delete</f:facet>
-                        <p:commandButton value="delete" 
-                                         action="#{userControllerWeb.deleteUser(user)}" 
-                                         update="@form" process="@this"
-                                         > 
-                        </p:commandButton>
-                    </p:column>
-                </h:dataTable>
+
+                </p:dataTable>
             </center>
         </h:form>
 
-        <p:dialog header="User Registration" showEffect="fade" modal="true" appendTo="@(body)"
+        <p:dialog header="Add Marks" showEffect="fade" modal="true" appendTo="@(body)"
                   widgetVar="manageProductDialog" responsive="true">
 
             <h:form id='dialogForm'>
-                <p:outputLabel for="usernameAdd"  style="width:100px" 
-                               styleClass="p-d-block" >User name :</p:outputLabel>
-                <p:inputText id="usernameAdd" value="#{userControllerWeb.user.name}" 
-                             required="true" class="form-control" >
-                    <p:ajax update="@this" process="@this" />
-                </p:inputText>
-                <br>
-                </br>
-                <p:outputLabel for="passwordAdd" style="width:100px" styleClass="p-d-block">Password:</p:outputLabel>
-                <p:password id="passwordAdd" value="#{userControllerWeb.user.password}" 
-                            required="true" class="form-control" >
-                    <p:ajax update="@this" process="@this" />
+                <div class="card ui-fluid ">
+                    <h:form>
+                        <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true"/>
 
-                </p:password> 
+                        <div class="p-formgrid p-grid">
+                            <div class="p-field p-col-12 p-md-4">
+                                <p:outputLabel value="Student ID" for="@next"/>
+                                <p:autoComplete id="acSimple" value="#{marksControllerWeb.marks}"
+                                                completeMethod="#{marksControllerWeb.markList}" scrollHeight="250"/>
+                            </div>
+                    </h:form>
+                </div>
 
                 <br> </br>
                 <p:commandButton value="Save" icon="pi pi-check" 
-                                 action="#{userControllerWeb.addUser()}"
+                                 action="#{marksControllerWeb.addMarks()}"
                                  class="btn btn-success btnWidth"
                                  styleClass="btn btn-success btnSpace"
                                  oncomplete="PF('manageProductDialog').hide()"  
-                                 rendered="#{empty userControllerWeb.user.id}" 
+                                 rendered="#{empty marksControllerWeb.marks.id}" 
                                  update="userForm" process="@this"
                                  />
 
                 <p:commandButton value="Update" icon="pi pi-check" 
-                                 action="#{userControllerWeb.editUser()}" 
+                                 action="#{marksControllerWeb.editMarks()}" 
                                  class="btn btn-success btnWidth" 
                                  styleClass="btn btn-success btnSpace" 
                                  oncomplete="PF('manageProductDialog').hide()" 
-                                 rendered="#{not empty userControllerWeb.user.id}" 
+                                 rendered="#{not empty marksControllerWeb.marks.id}" 
                                  update="userForm" process="@this"
                                  />
+
                 <p:commandButton value="Cancel" icon="pi pi-times" 
                                  oncomplete="PF('manageProductDialog').hide()"
                                  class="ui-button-secondary"

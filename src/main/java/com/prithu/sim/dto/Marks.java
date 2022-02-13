@@ -6,27 +6,33 @@
 package com.prithu.sim.dto;
 
 import java.util.Objects;
+import javax.persistence.Basic;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-/**
- *
- * @author lion
- */
+@Entity
+@Table(name = "marks")
 public class Marks {
 
-    private Long id ; 
-    private Long studentId;
-    private Long subjectId;
-    private float subMarks;
-    
+    @Id
+    @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    public Marks() {
-    }
+    private Double subMarks;
 
-    public Marks(Long studentId, Long subjectId, float subMarks) {
-        this.studentId = studentId;
-        this.subjectId = subjectId;
-        this.subMarks = subMarks;
-    }
+    @ManyToOne
+    @JoinColumn(name = "subject_id")
+    private Subject subject;
+
+    @ManyToOne
+    @JoinColumn(name = "student_id")
+    private Student student;
 
     public Long getId() {
         return id;
@@ -36,37 +42,33 @@ public class Marks {
         this.id = id;
     }
 
-    
-    public Long getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(Long studentId) {
-        this.studentId = studentId;
-    }
-
-    public Long getSubjectId() {
-        return subjectId;
-    }
-
-    public void setSubjectId(Long subjectId) {
-        this.subjectId = subjectId;
-    }
-
-    public float getSubMarks() {
+    public Double getSubMarks() {
         return subMarks;
     }
 
-    public void setSubMarks(float subMarks) {
+    public void setSubMarks(Double subMarks) {
         this.subMarks = subMarks;
+    }
+
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 67 * hash + Objects.hashCode(this.studentId);
-        hash = 67 * hash + Objects.hashCode(this.subjectId);
-        hash = 67 * hash + Float.floatToIntBits(this.subMarks);
+        int hash = 5;
         return hash;
     }
 
@@ -82,13 +84,16 @@ public class Marks {
             return false;
         }
         final Marks other = (Marks) obj;
-        if (Float.floatToIntBits(this.subMarks) != Float.floatToIntBits(other.subMarks)) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
-        if (!Objects.equals(this.studentId, other.studentId)) {
+        if (!Objects.equals(this.subMarks, other.subMarks)) {
             return false;
         }
-        if (!Objects.equals(this.subjectId, other.subjectId)) {
+        if (!Objects.equals(this.subject, other.subject)) {
+            return false;
+        }
+        if (!Objects.equals(this.student, other.student)) {
             return false;
         }
         return true;
@@ -96,7 +101,7 @@ public class Marks {
 
     @Override
     public String toString() {
-        return "Marks{" + "studentId=" + studentId + ", subjectId=" + subjectId + ", subMarks=" + subMarks + '}';
+        return "Marks{" + "id=" + id + ", subMarks=" + subMarks + ", subject=" + subject + ", student=" + student + '}';
     }
 
 }

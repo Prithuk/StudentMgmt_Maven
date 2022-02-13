@@ -118,5 +118,4 @@ public class Student implements Serializable {
         return "Student{" + "sid=" + sid + ", sname=" + sname + ", grade=" + grade + ", email=" + email + ", phone=" + phone + '}';
     }
 
-        
 }

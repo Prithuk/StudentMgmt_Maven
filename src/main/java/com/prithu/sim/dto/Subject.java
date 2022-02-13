@@ -5,19 +5,26 @@
  */
 package com.prithu.sim.dto;
 
+import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Basic;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-public class Subject {
+@Entity
+@Table(name = "subject")
+public class Subject implements Serializable {
 
+    @Id
+    @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String subName;
 
     public Subject() {
-    }
-
-    public Subject(Long id, String subName) {
-        this.id = id;
-        this.subName = subName;
     }
 
     public Long getId() {
@@ -38,7 +45,7 @@ public class Subject {
 
     @Override
     public int hashCode() {
-        int hash = 7;
+        int hash = 3;
         hash = 59 * hash + Objects.hashCode(this.id);
         hash = 59 * hash + Objects.hashCode(this.subName);
         return hash;
@@ -70,5 +77,4 @@ public class Subject {
         return "Subject{" + "id=" + id + ", subName=" + subName + '}';
     }
 
-    
 }

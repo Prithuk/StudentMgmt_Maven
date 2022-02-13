@@ -13,6 +13,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "user_info")
@@ -22,7 +24,13 @@ public class User implements Serializable {
     @Basic(optional = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull(message = "Name is required")
+    @Size(min = 4, message = "Name should at least be 4 characters long")
     private String name;
+
+    @NotNull
+    @Size(min = 6, message = "password should be at least 6 characters long")
     private String password;
 
     public void User() {
