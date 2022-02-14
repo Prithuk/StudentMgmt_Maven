@@ -48,6 +48,7 @@ public class MarksControllerWeb implements Serializable {
         markList = new ArrayList<>();
         marks = new Marks();
         loadMarks();
+
     }
 
     public void loadMarks() {
@@ -82,4 +83,6 @@ public class MarksControllerWeb implements Serializable {
         marksRepository.deleteMarks(marks);
         loadMarks();
     }
+
+    
 }

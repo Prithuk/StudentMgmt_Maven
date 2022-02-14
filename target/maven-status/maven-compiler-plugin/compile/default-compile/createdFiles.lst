@@ -7,7 +7,9 @@ com/prithu/sim/repository/MarksRepository.class
 com/prithu/simw/controller/MarksControllerWeb.class
 com/prithu/sim/dto/Subject_.class
 com/prithu/sim/repository/UserRepository.class
+com/prithu/sim/converter/StudentConverter.class
 com/prithu/simw/controller/MainLayout.class
+com/prithu/sim/converter/SubjectConverter.class
 com/prithu/sim/dao/MarksDao.class
 com/prithu/sim/dto/Marks.class
 com/prithu/sim/dto/Marks_.class

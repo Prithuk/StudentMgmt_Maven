@@ -43,13 +43,13 @@
                              >
                     <p:column >
                         <f:facet name="header">Student ID</f:facet>
-                        <h:outputText value="#{marks.student}"  />
+                        <h:outputText value="#{marks.student.sname}"  />
 
                     </p:column>
 
                     <p:column >
                         <f:facet name="header"> Subject ID</f:facet>
-                        <h:outputText value="#{marks.subject}" />
+                        <h:outputText value="#{marks.subject.subName}" />
                     </p:column>
 
                     <p:column>
@@ -80,15 +80,19 @@
                 <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true"/>
                 <p:panelGrid columns="2">
                     <p:outputLabel  value="Select student"/>
-                    <p:selectOneMenu id="studentid" value="#{marksControllerWeb.marks.student}" required="true">
+                    <p:selectOneMenu id="studentid" value="#{marksControllerWeb.marks.student}" 
+                                     required="true">
                         <f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="true" />
                         <f:selectItems value="#{studentControllerWeb.studentList}" var="std" 
-                                       itemLabel="#{std.sname}" itemValue="#{std}"/>
+                                       itemLabel="#{std.sname}" itemValue="#{std}"
+                                       />
+                        <f:converter converterId="studentConverter" />
                         <p:ajax update="@this" process="@this" />
                     </p:selectOneMenu>
 
                     <p:outputLabel  value="Select Subject"/>
-                    <p:selectOneMenu id="subjectid" value="#{marksControllerWeb.marks.subject}" required="true" >
+                    <p:selectOneMenu id="subjectid" value="#{marksControllerWeb.marks.subject}"
+                                     converter="subjectConverter" required="true" >
                         <f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="true"/>
                         <f:selectItems value="#{subjectControllerWeb.subjectList}" var="sub"
                                        itemLabel="#{sub.subName}"

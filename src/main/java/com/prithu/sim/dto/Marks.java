@@ -38,6 +38,15 @@ public class Marks implements Serializable {
     public Marks() {
     }
 
+    public Marks(Long id, Double subMarks, Subject subject, Student student) {
+        this.id = id;
+        this.subMarks = subMarks;
+        this.subject = subject;
+        this.student = student;
+    }
+    
+    
+
     public Long getId() {
         return id;
     }
