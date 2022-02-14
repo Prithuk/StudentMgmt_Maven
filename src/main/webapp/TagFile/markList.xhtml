@@ -41,7 +41,8 @@
                              rowsPerPageTemplate="5,10,15"
                              paginatorPosition="top"
                              >
-                    <p:column >
+                    <p:column filterBy="#{marks.student.name}"
+                              sortBy="#{marks.student.name}" >
                         <f:facet name="header">Student ID</f:facet>
                         <h:outputText value="#{marks.student.sname}"  />
 
@@ -66,6 +67,11 @@
                                          update="dialogForm" process="@this"
                                          >
                         </p:commandButton> 
+                        <p:commandButton value="delete" 
+                                         action="#{marksControllerWeb.deleteStudent(marks)}" 
+                                         update="@form" process="@this"
+                                         > 
+                        </p:commandButton>
                     </p:column>
 
                 </p:dataTable>
@@ -80,9 +86,12 @@
                 <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true"/>
                 <p:panelGrid columns="2">
                     <p:outputLabel  value="Select student"/>
-                    <p:selectOneMenu id="studentid" value="#{marksControllerWeb.marks.student}" 
+                    <p:selectOneMenu id="studentid" 
+                                     value="#{marksControllerWeb.marks.student}" 
                                      required="true">
-                        <f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="true" />
+                        <f:selectItem itemLabel="Select One" 
+                                      itemValue="" 
+                                      noSelectionOption="true" />
                         <f:selectItems value="#{studentControllerWeb.studentList}" var="std" 
                                        itemLabel="#{std.sname}" itemValue="#{std}"
                                        />
