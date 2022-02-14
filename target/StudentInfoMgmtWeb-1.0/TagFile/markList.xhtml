@@ -7,9 +7,9 @@
                 template="../template.xhtml">
 
     <ui:define name="content" >
-        <center><h2><h:outputText value="User Records"/></h2></center>
+        <center><h2><h:outputText value="Marks Records"/></h2></center>
 
-        <h:form id="userForm">
+        <h:form id="marksForm">
             <div class="card crud-demo">
                 <p:growl id="messages" showDetail="true"/>
 
@@ -19,7 +19,7 @@
                                      update="dialogForm" process="@this"
                                      styleClass="ui-button-success" 
                                      style="margin-right: .5rem"
-                                     actionListener="#{userControllerWeb.beforeCreate()}"
+                                     actionListener="#{marksControllerWeb.beforeCreate()}"
                                      resetValues="true"
                                      >
                     </p:commandButton>
@@ -61,7 +61,7 @@
                         <f:facet name="header">Edit</f:facet>
                         <p:commandButton value="edit" 
                                          oncomplete="PF('manageProductDialog').show()" 
-                                         actionListener="#{studentControllerWeb.beforeEdit(marks.id)}" 
+                                         actionListener="#{marksControllerWeb.beforeEdit(marks.id)}" 
                                          styleClass="ui-button-raised ui-button-success" 
                                          update="dialogForm" process="@this"
                                          >
@@ -76,43 +76,60 @@
                   widgetVar="manageProductDialog" responsive="true">
 
             <h:form id='dialogForm'>
-                <div class="card ui-fluid ">
-                    <h:form>
-                        <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true"/>
 
-                        <div class="p-formgrid p-grid">
-                            <div class="p-field p-col-12 p-md-4">
-                                <p:outputLabel value="Student ID" for="@next"/>
-                                <p:autoComplete id="acSimple" value="#{marksControllerWeb.marks}"
-                                                completeMethod="#{marksControllerWeb.markList}" scrollHeight="250"/>
-                            </div>
-                    </h:form>
-                </div>
+                <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true"/>
+                <p:panelGrid columns="2">
+                    <p:outputLabel  value="Select student"/>
+                    <p:selectOneMenu id="studentid" value="#{marksControllerWeb.marks.student}" required="true">
+                        <f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="true" />
+                        <f:selectItems value="#{studentControllerWeb.studentList}" var="std" 
+                                       itemLabel="#{std.sname}" itemValue="#{std}"/>
+                        <p:ajax update="@this" process="@this" />
+                    </p:selectOneMenu>
 
-                <br> </br>
-                <p:commandButton value="Save" icon="pi pi-check" 
-                                 action="#{marksControllerWeb.addMarks()}"
-                                 class="btn btn-success btnWidth"
-                                 styleClass="btn btn-success btnSpace"
-                                 oncomplete="PF('manageProductDialog').hide()"  
-                                 rendered="#{empty marksControllerWeb.marks.id}" 
-                                 update="userForm" process="@this"
-                                 />
+                    <p:outputLabel  value="Select Subject"/>
+                    <p:selectOneMenu id="subjectid" value="#{marksControllerWeb.marks.subject}" required="true" >
+                        <f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="true"/>
+                        <f:selectItems value="#{subjectControllerWeb.subjectList}" var="sub"
+                                       itemLabel="#{sub.subName}"
+                                       itemValue="#{sub}"
+                                       />
+                        <p:ajax update="@this" process="@this" />
+                    </p:selectOneMenu>
 
-                <p:commandButton value="Update" icon="pi pi-check" 
-                                 action="#{marksControllerWeb.editMarks()}" 
-                                 class="btn btn-success btnWidth" 
-                                 styleClass="btn btn-success btnSpace" 
-                                 oncomplete="PF('manageProductDialog').hide()" 
-                                 rendered="#{not empty marksControllerWeb.marks.id}" 
-                                 update="userForm" process="@this"
-                                 />
+                    <p:outputLabel for="marksadd"  style="width:100px" 
+                                   styleClass="p-d-block" >Enter Marks:</p:outputLabel>
+                    <p:inputNumber id="marksadd"
+                                   value="#{marksControllerWeb.marks.subMarks}" 
+                                   required="true"
+                                   class="form-control" >
+                        <p:ajax update="@this" process="@this" />
+                    </p:inputNumber>
 
-                <p:commandButton value="Cancel" icon="pi pi-times" 
-                                 oncomplete="PF('manageProductDialog').hide()"
-                                 class="ui-button-secondary"
-                                 update="userForm" process="@this"
-                                 />
+                    <p:commandButton value="Save" icon="pi pi-check" 
+                                     action="#{marksControllerWeb.addMarks()}"
+                                     class="btn btn-success btnWidth"
+                                     styleClass="btn btn-success btnSpace"
+                                     oncomplete="PF('manageProductDialog').hide()"  
+                                     rendered="#{empty marksControllerWeb.marks.id}" 
+                                     update="marksForm" process="@this"
+                                     />
+
+                    <p:commandButton value="Update" icon="pi pi-check" 
+                                     action="#{marksControllerWeb.editMarks()}" 
+                                     class="btn btn-success btnWidth" 
+                                     styleClass="btn btn-success btnSpace" 
+                                     oncomplete="PF('manageProductDialog').hide()" 
+                                     rendered="#{not empty marksControllerWeb.marks.id}" 
+                                     update="marksForm" process="@this"
+                                     />
+
+                    <p:commandButton value="Cancel" icon="pi pi-times" 
+                                     oncomplete="PF('manageProductDialog').hide()"
+                                     class="ui-button-secondary"
+                                     update="marksForm" process="@this"
+                                     />
+                </p:panelGrid>
             </h:form>
         </p:dialog>
     </ui:define>

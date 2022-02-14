@@ -5,6 +5,7 @@
  */
 package com.prithu.sim.dto;
 
+import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
@@ -17,7 +18,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "marks")
-public class Marks {
+public class Marks implements Serializable {
 
     @Id
     @Basic(optional = false)
@@ -33,6 +34,9 @@ public class Marks {
     @ManyToOne
     @JoinColumn(name = "student_id")
     private Student student;
+
+    public Marks() {
+    }
 
     public Long getId() {
         return id;
@@ -69,6 +73,10 @@ public class Marks {
     @Override
     public int hashCode() {
         int hash = 5;
+        hash = 73 * hash + Objects.hashCode(this.id);
+        hash = 73 * hash + Objects.hashCode(this.subMarks);
+        hash = 73 * hash + Objects.hashCode(this.subject);
+        hash = 73 * hash + Objects.hashCode(this.student);
         return hash;
     }
 

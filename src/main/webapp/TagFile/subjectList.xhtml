@@ -56,7 +56,7 @@
 
 
                     <p:column>
-                        <f:facet name="header">Edit</f:facet>
+                        <f:facet name="header">ACTION</f:facet>
                         <p:commandButton value="edit" 
                                          oncomplete="PF('manageProductDialog').show()" 
                                          actionListener="#{subjectControllerWeb.beforeEdit(subject.id)}" 
@@ -64,15 +64,13 @@
                                          update="dialogForm" process="@this"
                                          >
                         </p:commandButton> 
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">Delete</f:facet>
                         <p:commandButton value="delete" 
                                          action="#{subjectControllerWeb.deleteSubject(subject)}" 
                                          update="@form" process="@this"
                                          > 
                         </p:commandButton>
                     </p:column>
+
                 </p:dataTable>
             </center>
         </h:form>

@@ -10,6 +10,7 @@ import com.prithu.sim.repository.MarksRepository;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -42,6 +43,7 @@ public class MarksControllerWeb implements Serializable {
         this.marks = marks;
     }
 
+    @PostConstruct
     public void init() {
         markList = new ArrayList<>();
         marks = new Marks();
@@ -54,6 +56,8 @@ public class MarksControllerWeb implements Serializable {
 
     public void beforeCreate() {
         marks = new Marks();
+        System.out.println(marks);
+
     }
 
     public void addMarks() {

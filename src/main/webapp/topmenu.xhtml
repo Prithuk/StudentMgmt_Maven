@@ -8,14 +8,14 @@
 
 
     <h:form id="topmenu">
-            <div class="card">
-                <center>
-                    <p:commandButton value="User" ajax="false" action="/faces/TagFile/userList.xhtml?faces-redirect=true" />
-                    <p:commandButton value="Student" ajax="false" action="/TagFile/studentList.xhtml" />
-                    <p:commandButton value="Subject" ajax="false" action="subjectList.xhtml"  />
-                    <p:commandButton value="Marks" ajax="false"  />
+        <div class="card">
+            <center>
+                <p:commandButton value="User" ajax="false" action="/faces/TagFile/userList.xhtml?faces-redirect=true" />
+                <p:commandButton value="Student" ajax="false" action="/faces/TagFile/studentList.xhtml?faces-redirect=true" />
+                <p:commandButton value="Subject" ajax="false" action="/faces/TagFile/subjectList.xhtml?faces-redirect=true"  />
+                <p:commandButton value="Marks" ajax="false" action="/faces/TagFile/markList.xhtml?faces-redirect=true"  />
 
-                </center>
-            </div>
-        </h:form>
+            </center>
+        </div>
+    </h:form>
 </ui:composition>
