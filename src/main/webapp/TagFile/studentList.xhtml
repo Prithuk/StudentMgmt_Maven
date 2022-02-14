@@ -16,7 +16,7 @@
 
                 <center> 
                     <p:commandButton value="New Student" icon="pi pi-plus" 
-                                     oncomplete="PF('manageProductDialog').show()"
+                                     oncomplete="PF('studentRegDialog').show()"
                                      update="dialogForm" process="@this"
                                      styleClass="ui-button-success" 
                                      style="margin-right: .5rem"
@@ -35,6 +35,7 @@
                              filteredValue="#{studentControllerWeb.studentList}"
                              emptyMessage="No Student found with given criteria"
                              var="student" 
+                             showGridlines="true"
                              paginator="true" rows="10"
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink}
                              {PreviousPageLink} {PageLinks} {NextPageLink}
@@ -42,6 +43,7 @@
                              rowsPerPageTemplate="5,10,15"
                              paginatorPosition="top"
                              >
+
                     <p:column>
                         <f:facet name="header">Student ID</f:facet>
                         <h:outputText value="#{student.sid}" />
@@ -71,7 +73,7 @@
                     <p:column>
                         <f:facet name="header">ACTION</f:facet>
                         <p:commandButton value="edit" 
-                                         oncomplete="PF('manageProductDialog').show()" 
+                                         oncomplete="PF('studentRegDialog').show()" 
                                          actionListener="#{studentControllerWeb.beforeEdit(student.sid)}" 
                                          styleClass="ui-button-raised ui-button-success" 
                                          update="dialogForm" process="@this"
@@ -82,72 +84,98 @@
                                          update="@form" process="@this"
                                          > 
                         </p:commandButton>
+
+                        <p:commandButton value="Result"
+                                         action="#{marksControllerWeb.displayResult(student)}"
+                                          update="@form" process="@this"  > 
+                        </p:commandButton>
                     </p:column>
 
                 </p:dataTable>
             </center>
         </h:form>
 
+
+    </ui:define> 
+
+    <ui:define name="modelDialog" > 
+
         <p:dialog header="Student Registration" showEffect="fade" modal="true"
-                  widgetVar="manageProductDialog" responsive="true" appendTo="@(body)">
+                  dynamic="true" closable="true" closeOnEscape="true"
+                  widgetVar="studentRegDialog" responsive="true" appendTo="@(body)">
 
             <h:form id='dialogForm'>
-                <p:outputLabel for="usernameAdd"  style="width:100px" 
-                               styleClass="p-d-block" >Student name :</p:outputLabel>
-                <p:inputText id="usernameAdd" value="#{studentControllerWeb.student.sname}" 
-                             required="true" class="form-control" >
-                    <p:ajax update="@this" process="@this" />
-                </p:inputText>
-                <br>
-                </br>
+                <p:messages id="allmsg" />
+                <h:panelGrid columns="3">
+                    <p:outputLabel for="usernameAdd" style="width:100px" 
+                                   styleClass="p-d-block" value="Student name :" />
+                    <p:inputText id="usernameAdd"
+                                 value="#{studentControllerWeb.student.sname}" 
+                                 required="true" class="form-control" >
+                        <f:validateLength minimum="4"/>
+                        <p:ajax update="@this umsg allmsg" process="@this" />
+                    </p:inputText>
+                    <p:message id="umsg" for="usernameAdd" />
 
-                <p:outputLabel for="gradeadd"  style="width:100px" 
-                               styleClass="p-d-block" >Student Class :</p:outputLabel>
-                <p:inputText id="gradeadd" value="#{studentControllerWeb.student.grade}" 
-                             required="true" class="form-control" >
-                    <p:ajax update="@this" process="@this" />
-                </p:inputText>
-                <br> </br>
+                    <p:outputLabel for="gradeadd"  style="width:100px" 
+                                   styleClass="p-d-block" >Student Class :</p:outputLabel>
+                    <p:inputNumber id="gradeadd" decimalPlaces="0"
+                                   value="#{studentControllerWeb.student.grade}" 
+                                   required="true" class="form-control" >
+                        <p:ajax update="@this" process="@this" />
+                    </p:inputNumber>
+                    <p:message for="gradeadd" />
 
-                <p:outputLabel for="emailadd"  style="width:100px" 
-                               styleClass="p-d-block" >Student Email :</p:outputLabel>
-                <p:inputText id="emailadd" value="#{studentControllerWeb.student.email}" 
-                             required="true" class="form-control" >
-                    <p:ajax update="@this" process="@this" />
-                </p:inputText>
-                <br> </br>
 
-                <p:outputLabel for="phoneadd"  style="width:100px" 
-                               styleClass="p-d-block" >Student phone :</p:outputLabel>
-                <p:inputText id="phoneadd" value="#{studentControllerWeb.student.phone}" 
-                             required="true" class="form-control" >
-                    <p:ajax update="@this" process="@this" />
-                </p:inputText>
-                <br> </br>
-                <p:commandButton value="Save" icon="pi pi-check" 
-                                 action="#{studentControllerWeb.addStudent()}"
-                                 class="btn btn-success btnWidth"
-                                 styleClass="btn btn-success btnSpace"
-                                 oncomplete="PF('manageProductDialog').hide()"  
-                                 rendered="#{empty studentControllerWeb.student.sid}" 
-                                 update="studentForm" process="@this"
-                                 />
+                    <p:outputLabel for="emailadd"  style="width:100px" 
+                                   styleClass="p-d-block" >Student Email :</p:outputLabel>
+                    <p:inputText id="emailadd" 
+                                 value="#{studentControllerWeb.student.email}" 
+                                 required="true"
+                                 class="form-control" >
+                        <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                        <p:ajax update="@this" process="@this" />
+                    </p:inputText>
+                    <p:message for="emailadd" />
 
-                <p:commandButton value="Update" icon="pi pi-check" 
-                                 action="#{studentControllerWeb.editStudent()}" 
-                                 class="btn btn-success btnWidth" 
-                                 styleClass="btn btn-success btnSpace" 
-                                 oncomplete="PF('manageProductDialog').hide()" 
-                                 rendered="#{not empty studentControllerWeb.student.sid}" 
-                                 update="studentForm" process="@this"
-                                 />
-                <p:commandButton value="Cancel" icon="pi pi-times" 
-                                 oncomplete="PF('manageProductDialog').hide()"
-                                 class="ui-button-secondary"
-                                 update="studentForm" process="@this"
-                                 />
+
+                    <p:outputLabel for="phoneadd"  style="width:100px" 
+                                   styleClass="p-d-block" >Student phone :</p:outputLabel>
+                    <p:inputNumber id="phoneadd" value="#{studentControllerWeb.student.phone}" 
+                                   maxlength="12" decimalSeparator=""
+                                   decimalPlaces="0"
+                                   required="true" class="form-control" >
+                        <p:ajax update="@this" process="@this" />
+                    </p:inputNumber>
+                    <p:message for="phoneadd" />
+
+
+                    <p:commandButton value="Save" icon="pi pi-check" 
+                                     action="#{studentControllerWeb.addStudent()}"
+                                     class="btn btn-success btnWidth"
+                                     styleClass="btn btn-success btnSpace"
+                                     oncomplete="if (args &amp;&amp; !args.validationFailed) PF('studentRegDialog').hide()"
+                                     rendered="#{empty studentControllerWeb.student.sid}" 
+                                     update="studentForm" process="@this"
+                                     />
+
+                    <p:commandButton value="Update" icon="pi pi-check" 
+                                     action="#{studentControllerWeb.editStudent()}" 
+                                     class="btn btn-success btnWidth" 
+                                     styleClass="btn btn-success btnSpace" 
+                                     oncomplete="if (args &amp;&amp; !args.validationFailed) PF('studentRegDialog').hide()"
+                                     rendered="#{not empty studentControllerWeb.student.sid}" 
+                                     update="studentForm" process="@this"
+                                     />
+                    <p:commandButton value="Cancel" icon="pi pi-times" 
+                                     oncomplete="PF('studentRegDialog').hide()"
+                                     class="ui-button-secondary"
+                                     update="studentForm" process="@this"
+                                     />
+                </h:panelGrid>
             </h:form>
         </p:dialog>
     </ui:define>
+
 </ui:composition>
 

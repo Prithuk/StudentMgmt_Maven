@@ -32,6 +32,7 @@
                 <p:dataTable id="subjectTable" 
                              value="#{subjectControllerWeb.subjectList}" 
                              var="subject" 
+                             showGridlines="true"
                              emptyMessage="No users found with given criteria"
                              filteredValue="#{subjectControllerWeb.subjectList}"
                              paginator="true" rows="10"
@@ -79,37 +80,38 @@
                   widgetVar="manageProductDialog" responsive="true">
 
             <h:form id='dialogForm'>
-                <p:outputLabel for="subjectnameAdd"  style="width:100px" 
-                               styleClass="p-d-block" >Subject name :</p:outputLabel>
-                <p:inputText id="subjectnameAdd" value="#{subjectControllerWeb.subject.subName}" 
-                             required="true" class="form-control" >
-                    <p:ajax update="@this" process="@this" />
-                </p:inputText>
+                <h:panelGrid columns="3" >
+                    <p:outputLabel for="subjectnameAdd"  style="width:100px" 
+                                   styleClass="p-d-block" >Subject name :</p:outputLabel>
+                    <p:inputText id="subjectnameAdd" value="#{subjectControllerWeb.subject.subName}" 
+                                 required="true" class="form-control" >
+                        <p:ajax update="@this" process="@this" />
+                    </p:inputText>
 
-                <br> </br>
-                <p:commandButton value="Save" icon="pi pi-check" 
-                                 action="#{subjectControllerWeb.addSubject()}"
-                                 class="btn btn-success btnWidth"
-                                 styleClass="btn btn-success btnSpace"
-                                 oncomplete="PF('manageProductDialog').hide()"  
-                                 rendered="#{empty subjectControllerWeb.subject.id}" 
-                                 update="subjectForm" process="@this"
-                                 />
+                    <br> </br>
+                    <p:commandButton value="Save" icon="pi pi-check" 
+                                     action="#{subjectControllerWeb.addSubject()}"
+                                     class="btn btn-success btnWidth"
+                                     styleClass="btn btn-success btnSpace"
+                                     oncomplete="PF('manageProductDialog').hide()"  
+                                     rendered="#{empty subjectControllerWeb.subject.id}" 
+                                     update="subjectForm" process="@this"
+                                     />
+                    <p:commandButton value="Update" icon="pi pi-check" 
+                                     action="#{subjectControllerWeb.editSubject()}" 
+                                     class="btn btn-success btnWidth" 
+                                     styleClass="btn btn-success btnSpace" 
+                                     oncomplete="PF('manageProductDialog').hide()" 
+                                     rendered="#{not empty subjectControllerWeb.subject.id}" 
+                                     update="subjectForm" process="@this"
+                                     />
 
-                <p:commandButton value="Update" icon="pi pi-check" 
-                                 action="#{subjectControllerWeb.editSubject()}" 
-                                 class="btn btn-success btnWidth" 
-                                 styleClass="btn btn-success btnSpace" 
-                                 oncomplete="PF('manageProductDialog').hide()" 
-                                 rendered="#{not empty subjectControllerWeb.subject.id}" 
-                                 update="subjectForm" process="@this"
-                                 />
-
-                <p:commandButton value="Cancel" icon="pi pi-times" 
-                                 oncomplete="PF('manageProductDialog').hide()"
-                                 class="ui-button-secondary"
-                                 update="subjectForm" process="@this"
-                                 />
+                    <p:commandButton value="Cancel" icon="pi pi-times" 
+                                     oncomplete="PF('manageProductDialog').hide()"
+                                     class="ui-button-secondary"
+                                     update="subjectForm" process="@this"
+                                     />
+                </h:panelGrid>
             </h:form>
         </p:dialog>
     </ui:define>

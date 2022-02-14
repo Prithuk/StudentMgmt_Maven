@@ -6,6 +6,7 @@
 package com.prithu.simw.controller;
 
 import com.prithu.sim.dto.Marks;
+import com.prithu.sim.dto.Student;
 import com.prithu.sim.repository.MarksRepository;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -84,5 +85,8 @@ public class MarksControllerWeb implements Serializable {
         loadMarks();
     }
 
-    
+    public void displayResult(Student student) {
+        marksRepository.displayInfo(student);
+    }
+
 }

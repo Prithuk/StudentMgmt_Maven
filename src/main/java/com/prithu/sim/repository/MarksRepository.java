@@ -6,8 +6,12 @@
 package com.prithu.sim.repository;
 
 import com.prithu.sim.dto.Marks;
+import com.prithu.sim.dto.Student;
+import com.prithu.simw.controller.MarksControllerWeb;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,6 +29,22 @@ public class MarksRepository {
 
     protected EntityManager getEntityManager() {
         return entityManager;
+    }
+    static MarksControllerWeb marksController = new MarksControllerWeb();
+    SubjectRepository subjectRepository;
+    List<MarksRepository> marksRepositorys = new ArrayList<>();
+
+    public MarksRepository() {
+        subjectRepository = new SubjectRepository();
+
+    }
+
+    public SubjectRepository getSubjectRepository() {
+        return subjectRepository;
+    }
+
+    public void setSubjectRepository(SubjectRepository subjectRepository) {
+        this.subjectRepository = subjectRepository;
     }
 
     public List<Marks> getAllMarksFromDB() {
@@ -61,5 +81,81 @@ public class MarksRepository {
         getEntityManager().flush();
     }
 
-    
+    public void displayInfo(Student student) {
+        System.out.println("Result of" + student.getSname() + "is");
+        System.out.println("Subject" + "\t" + "Marks");
+        List<Marks> markList = getAllMarksFromDB();
+
+        for (Marks marks : markList) {
+            System.out.println(marks.getSubject() + "\t" + marks.getSubMarks());
+        }
+        System.out.println("total marks :" + getTotalMarks(markList));
+
+        List<Long> subList = getStudentSubjectsMap(markList).getOrDefault(student.getSid(), new ArrayList<>());
+        float totalSubject = subList.size();
+        double percent = getPercentage(markList, totalSubject);
+        System.out.println("Percentage is :" + percent);
+        System.out.println("Divison is :" + getDivison(percent));
     }
+
+    public String getDivison(double percent) {
+
+        if (percent >= 80 && percent < 100) {
+            return "--- Distinction ---";
+        } else if (percent >= 60 && percent < 80) {
+            return "--- First Divison ---";
+        } else if (percent >= 45 && percent < 60) {
+            return "Second Divison";
+        } else if (percent >= 40 && percent < 45) {
+            return "Third Divison";
+        } else {
+            return "Failed";
+        }
+    }
+
+    public double getTotalMarks(List<Marks> markList) {
+        double total = 0;
+        for (Marks marks : markList) {
+            total = total + marks.getSubMarks();
+        }
+        return total;
+    }
+
+    public List<Long> getUnqSubjectsForStd(Student student, List<Marks> marksList) {
+        List<Long> subjectList = new ArrayList<>();
+        for (Marks m : marksList) {
+            if (m.getStudent().equals(student.getSid()) && !subjectList.contains(m.getSubject().getId())) {
+                subjectList.add(m.getSubject().getId());
+            }
+        }
+        return subjectList;
+    }
+
+    public List<Long> getUnqStudents(List<Marks> marksList) {
+        List<Long> stds = new ArrayList<>();
+        for (Marks m : marksList) {
+            if (!stds.contains(m.getStudent().getSid())) {
+                stds.add(m.getStudent().getSid());
+            }
+        }
+        return stds;
+    }
+
+    public Map<Long, List<Long>> getStudentSubjectsMap(List<Marks> marks) {
+        Map<Long, List<Long>> studentSubMap = new HashMap<>();
+        List<Long> students = getUnqStudents(marks);
+        for (Long std : students) {
+            Student student = new Student();
+            student.setSid(std);
+            studentSubMap.put(std, getUnqSubjectsForStd(student, marks));
+        }
+        return studentSubMap;
+    }
+
+    public double getPercentage(List<Marks> markList, float totalSubject) {
+        double totalMarks = getTotalMarks(markList);
+        double percentage = (totalMarks / (totalSubject * 100)) * 100;
+        return percentage;
+    }
+
+}

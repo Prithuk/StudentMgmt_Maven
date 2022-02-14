@@ -8,14 +8,17 @@
 
 
     <h:form id="topmenu">
-        <div class="card">
-            <center>
-                <p:commandButton value="User" ajax="false" action="/faces/TagFile/userList.xhtml?faces-redirect=true" />
-                <p:commandButton value="Student" ajax="false" action="/faces/TagFile/studentList.xhtml?faces-redirect=true" />
-                <p:commandButton value="Subject" ajax="false" action="/faces/TagFile/subjectList.xhtml?faces-redirect=true"  />
-                <p:commandButton value="Marks" ajax="false" action="/faces/TagFile/markList.xhtml?faces-redirect=true"  />
+        <center>
+            <h:panelGrid columns="5" >
+                <div class="card">
+                    <p:commandButton value="User" ajax="false" action="/faces/TagFile/userList.xhtml?faces-redirect=true" />
+                    <p:commandButton value="Student" ajax="false" action="/faces/TagFile/studentList.xhtml?faces-redirect=true" />
+                    <p:commandButton value="Subject" ajax="false" action="/faces/TagFile/subjectList.xhtml?faces-redirect=true"  />
+                    <p:commandButton value="Marks" ajax="false" action="/faces/TagFile/markList.xhtml?faces-redirect=true"  />
 
-            </center>
-        </div>
+                </div>
+            </h:panelGrid>
+        </center>
+
     </h:form>
 </ui:composition>
