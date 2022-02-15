@@ -7,6 +7,7 @@ package com.prithu.sim.repository;
 
 import com.prithu.sim.dto.Marks;
 import com.prithu.sim.dto.Student;
+import com.prithu.sim.vo.ResultVo;
 import com.prithu.simw.controller.MarksControllerWeb;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -61,6 +62,21 @@ public class MarksRepository {
 
     }
 
+    public List<Marks> getByStudent(Student student) {
+
+        List<Marks> marksList = new ArrayList<>();
+
+        try {
+            Query query = entityManager.createQuery("select m from Marks m where m.student.sid=:student", Marks.class);
+            query.setParameter("student", student.getSid());
+            marksList = query.getResultList();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return marksList;
+
+    }
+
     public void addNewMarks(Marks marks) {
 
         this.entityManager.persist(marks);
@@ -81,21 +97,27 @@ public class MarksRepository {
         getEntityManager().flush();
     }
 
-    public void displayInfo(Student student) {
+    public ResultVo displayInfo(Student student) {
+        ResultVo resultVo = new ResultVo();
+        resultVo.setStudent(student);
         System.out.println("Result of" + student.getSname() + "is");
         System.out.println("Subject" + "\t" + "Marks");
-        List<Marks> markList = getAllMarksFromDB();
+        List<Marks> markList = getByStudent(student);
+        resultVo.setMarksList(markList);
 
         for (Marks marks : markList) {
             System.out.println(marks.getSubject() + "\t" + marks.getSubMarks());
         }
         System.out.println("total marks :" + getTotalMarks(markList));
 
-        List<Long> subList = getStudentSubjectsMap(markList).getOrDefault(student.getSid(), new ArrayList<>());
-        float totalSubject = subList.size();
+        float totalSubject = markList.size();
         double percent = getPercentage(markList, totalSubject);
         System.out.println("Percentage is :" + percent);
         System.out.println("Divison is :" + getDivison(percent));
+        resultVo.setPercentage(percent);
+        resultVo.setDivison(getDivison(percent));
+
+        return resultVo;
     }
 
     public String getDivison(double percent) {
@@ -154,7 +176,7 @@ public class MarksRepository {
 
     public double getPercentage(List<Marks> markList, float totalSubject) {
         double totalMarks = getTotalMarks(markList);
-        double percentage = (totalMarks / (totalSubject * 100)) * 100;
+        double percentage = (totalMarks / (totalSubject * 100.0)) * 100.0;
         return percentage;
     }
 

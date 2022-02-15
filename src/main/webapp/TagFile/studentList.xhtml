@@ -86,8 +86,9 @@
                         </p:commandButton>
 
                         <p:commandButton value="Result"
-                                         action="#{marksControllerWeb.displayResult(student)}"
-                                          update="@form" process="@this"  > 
+                                         oncomplete="PF('resultDialog').show();"
+                                         actionListener="#{marksControllerWeb.displayResult(student)}"
+                                         update="frm_result" process="@this"  > 
                         </p:commandButton>
                     </p:column>
 
@@ -99,6 +100,7 @@
     </ui:define> 
 
     <ui:define name="modelDialog" > 
+        <ui:include src="/TagFile/ResultSet.xhtml" /> 
 
         <p:dialog header="Student Registration" showEffect="fade" modal="true"
                   dynamic="true" closable="true" closeOnEscape="true"

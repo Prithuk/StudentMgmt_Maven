@@ -3,21 +3,78 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:p="http://primefaces.org/ui" 
-                template="template.xhtml">
+                xmlns:p="http://primefaces.org/ui" >
 
 
 
-    <ui:define name="content" >
+    <p:dialog header="Result of Student" showEffect="fade" modal="true" appendTo="@(body)"
+              widgetVar="resultDialog" responsive="true" width="500" height="500" 
+              >
+        <h:form id="frm_result">
+            <center>
+                <p:outputLabel  style="width:100px; font-weight: bold; font-size: 20px;" 
+                                styleClass="p-d-block" value="Result of Final Exam"  />
 
+                <p:panelGrid columns="5">
+                    <p:outputLabel for="olpl_name"  style="width:100px" 
+                                   styleClass="p-d-block" value="Student Name" />
+                    <h:outputText id="olpl_name" value="#{marksControllerWeb.resultVo.student.sname}" />
+                    <p:outputLabel />
+                    <p:outputLabel for="olpl_class"  style="width:100px" 
+                                   styleClass="p-d-block" value="class" />
+                    <h:outputText id="olpl_class" value="#{marksControllerWeb.resultVo.student.grade}" />
+                </p:panelGrid>
+            </center>
 
-        <center> 
+            <p:divider layout="horizontal" />
+            <center> 
+                <p:dataTable id="userTable" 
+                             value="#{marksControllerWeb.resultVo.marksList}" 
+                             var="user"  lazy="false"
+                             showGridlines="true"
+                             scrollable="true"
+                             scrollHeight="250"
+                             emptyMessage="No users found with given criteria"
+                             paginator="true" rows="10" 
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink}
+                             {PreviousPageLink} {PageLinks} {NextPageLink}
+                             {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15"
+                             paginatorPosition="bottom"> 
 
-            <p:dataTable> </p:dataTable>
+                    <p:column>
+                        <f:facet name="header"> Subjects</f:facet>
+                        <h:outputText value="#{user.subject.subName}" />
+                    </p:column>
 
-        </center>
-    </ui:define>
+                    <p:column>
+                        <f:facet name="header"> Total Marks</f:facet>
+                        <h:outputText value="100" />
+                    </p:column>
 
+                    <p:column>
+                        <f:facet name="header"> Marks Obtained</f:facet>
+                        <h:outputText value="#{user.subMarks}"/>
+                    </p:column>
+                </p:dataTable>
+
+            </center>
+            <center>
+                <p:panelGrid columns="5">
+                    <p:outputLabel for="percentage"  style="width:100px" 
+                                   styleClass="p-d-block" value="percentage" />
+                    <h:outputText id="percentage" value="#{marksControllerWeb.resultVo.percentage}" />
+
+                    <p:outputLabel />
+                    <p:outputLabel for="divison"  style="width:100px" 
+                                   styleClass="p-d-block" value="Divison" />
+                    <h:outputText id="divison" value="#{marksControllerWeb.resultVo.divison}" />
+                </p:panelGrid>
+            </center>
+
+        </h:form>
+
+    </p:dialog>
 
 
 </ui:composition>

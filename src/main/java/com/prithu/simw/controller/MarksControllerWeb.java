@@ -8,6 +8,7 @@ package com.prithu.simw.controller;
 import com.prithu.sim.dto.Marks;
 import com.prithu.sim.dto.Student;
 import com.prithu.sim.repository.MarksRepository;
+import com.prithu.sim.vo.ResultVo;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ public class MarksControllerWeb implements Serializable {
 
     private List<Marks> markList;
     private Marks marks;
+    private ResultVo resultVo;
 
     @Inject
     private MarksRepository marksRepository;
@@ -42,6 +44,14 @@ public class MarksControllerWeb implements Serializable {
 
     public void setMarks(Marks marks) {
         this.marks = marks;
+    }
+
+    public ResultVo getResultVo() {
+        return resultVo;
+    }
+
+    public void setResultVo(ResultVo resultVo) {
+        this.resultVo = resultVo;
     }
 
     @PostConstruct
@@ -86,7 +96,8 @@ public class MarksControllerWeb implements Serializable {
     }
 
     public void displayResult(Student student) {
-        marksRepository.displayInfo(student);
+        resultVo = marksRepository.displayInfo(student);
+
     }
 
 }
