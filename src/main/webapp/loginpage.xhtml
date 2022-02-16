@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </h:head>
+
+    <h:body>
+        <h:form id="loginForm">
+            <center>
+                <h:panelGrid columns="3">
+                    <p:outputLabel for="lbl_username" style="width:100px" 
+                                   styleClass="p-d-block" value="Enter username" />
+                    <p:inputText id="lbl_username"
+                                 value="#{userControllerWeb.user.name}" 
+                                 required="true"
+                                 requiredMessage="Name field must not be empty"
+                                 class="form-control" >
+                        <p:ajax process="@this" update="@this" />
+                    </p:inputText>
+                    <h:message for="lbl_username" style="color:red" />
+
+                    <p:outputLabel for="inputPassword" style="width:100px" styleClass="p-d-block" value="Enter password" />
+                    <p:password id="inputPassword" value="#{userControllerWeb.user.password}" 
+                                required="true"
+                                feedback="true"
+                                inline="true"
+                                redisplay="true"
+                                requiredMessage="Password field must not be empty"
+                                class="form-control" >
+                        <p:ajax process="@this" update="@this" />
+                    </p:password>
+                    <h:message for="inputPassword" style="color:red" />
+                    <br /> 
+
+                    <p:commandButton value="Sign In" icon="pi pi-sign-in" ajax="false"
+                                     action="#{userControllerWeb.validateUser()}"
+                                     />
+                </h:panelGrid>
+            </center>
+        </h:form>
+    </h:body> 
+</html>

@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.prithu.sim.vo;
 
 import com.prithu.sim.dto.Marks;
@@ -16,6 +12,8 @@ public class ResultVo implements Serializable {
     private String divison;
     private Double percentage;
     private List<Marks> marksList;
+    private Double gpa;
+    private String gradeConversion ; 
 
     public Student getStudent() {
         return student;
@@ -48,5 +46,22 @@ public class ResultVo implements Serializable {
     public void setMarksList(List<Marks> marksList) {
         this.marksList = marksList;
     }
+
+    public Double getGpa() {
+        return gpa;
+    }
+
+    public void setGpa(Double gpa) {
+        this.gpa = gpa;
+    }
+
+    public String getGradeConversion() {
+        return gradeConversion;
+    }
+
+    public void setGradeConversion(String gradeConversion) {
+        this.gradeConversion = gradeConversion;
+    }
+    
 
 }

@@ -42,7 +42,6 @@ public class UserRepository {
     }
 
     public User findById(Long id) {
-         
 
         return em.find(User.class, id);
 
@@ -57,5 +56,32 @@ public class UserRepository {
     public void deleteUser(User user) {
         getEntityManager().remove(getEntityManager().merge(user));
         getEntityManager().flush();
+    }
+
+    public User findByUserName(String name) {
+        User user = null;
+        try {
+            Query query = em.createNativeQuery("select u from User u where u.name=:username", User.class);
+            query.setParameter("username", name);
+            user = (User) query.getSingleResult();
+        } catch (Exception ex) {
+            user = null;
+            ex.printStackTrace();
+        }
+        return user;
+
+    }
+
+    public User searchUser(String name) {
+        User user = null;
+        try {
+            Query query = em.createNativeQuery("select us from User us where us.name=:username", User.class);
+            query.setParameter("username", name);
+            user = (User) query.getSingleResult();
+        } catch (Exception e) {
+            user = null;
+            e.printStackTrace();
+        }
+        return user;
     }
 }

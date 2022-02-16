@@ -9,6 +9,24 @@
     <ui:define name="content" >
         <center><h2><h:outputText value="User Records"/></h2></center>
 
+        <h:form> 
+            <p:outputLabel for="searchuser" style="width:100px" 
+                           styleClass="p-d-block" value="Search User :" />
+            <p:inputText id="searchuser"
+                         value="#{userControllerWeb.user.name}" 
+                         required="true" class="form-control" >
+            </p:inputText>
+
+
+            <p:commandButton value="Search" 
+                             actionListener="#{userControllerWeb.searchUser()}" 
+                             styleClass="ui-button-raised ui-button-success" 
+                             >
+            </p:commandButton>
+
+
+        </h:form>
+
         <h:form id="userForm" >
 
             <div class="card crud-demo">
@@ -116,15 +134,6 @@
                     </p:password> 
 
                     <br> </br>
-                    <p:commandButton value="Save" icon="pi pi-check" 
-                                     action="#{userControllerWeb.addUser}"
-                                     class="btn btn-success btnWidth"
-                                     styleClass="btn btn-success btnSpace"
-                                     oncomplete="(if (args  &amp;&amp; !args.validationFailed) PF('userRegisterDialog').hide();)"
-                                     rendered="#{empty userControllerWeb.user.id}" 
-                                     update="userForm @form" 
-                                     process="@this"
-                                     />
 
                     <p:commandButton value="Update" icon="pi pi-check" 
                                      action="#{userControllerWeb.editUser()}" 

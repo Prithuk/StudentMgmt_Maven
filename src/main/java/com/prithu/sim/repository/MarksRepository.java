@@ -59,13 +59,10 @@ public class MarksRepository {
             ex.printStackTrace();
         }
         return marksList;
-
     }
 
     public List<Marks> getByStudent(Student student) {
-
         List<Marks> marksList = new ArrayList<>();
-
         try {
             Query query = entityManager.createQuery("select m from Marks m where m.student.sid=:student", Marks.class);
             query.setParameter("student", student.getSid());
@@ -74,7 +71,6 @@ public class MarksRepository {
             ex.printStackTrace();
         }
         return marksList;
-
     }
 
     public void addNewMarks(Marks marks) {
@@ -116,7 +112,8 @@ public class MarksRepository {
         System.out.println("Divison is :" + getDivison(percent));
         resultVo.setPercentage(percent);
         resultVo.setDivison(getDivison(percent));
-
+        resultVo.setGpa(studentGpa(percent));
+        resultVo.setGradeConversion(convertPercentToGrade(percent));
         return resultVo;
     }
 
@@ -178,6 +175,43 @@ public class MarksRepository {
         double totalMarks = getTotalMarks(markList);
         double percentage = (totalMarks / (totalSubject * 100.0)) * 100.0;
         return percentage;
+    }
+
+    public String convertPercentToGrade(double percent) {
+        if (percent >= 90 && percent < 100) {
+            return "A+";
+        } else if (percent >= 80 && percent < 90) {
+            return "A";
+        } else if (percent >= 75 && percent < 80) {
+            return "A-";
+        } else if (percent >= 70 && percent < 75) {
+            return "B+";
+        } else if (percent >= 60 && percent < 70) {
+            return "B";
+        } else if (percent >= 50 && percent < 60) {
+            return "B-";
+        } else if (percent >= 40 && percent < 50) {
+            return "C";
+        } else {
+            return "Failed";
+        }
+    }
+
+    public double studentGpa(double percent) {
+
+        /* 
+       need to have :  hours  ,grade, points(from grade), QP(hours*points)
+        TOTAL hours , total qp
+        
+        gpa = total qp / total hours 
+        
+        gpa = (percentage/100)*4
+        
+         */
+//        final Integer subjectCreditHours = 3;
+        double gpa = ((percent / 100) * 4);
+        System.out.println("gpa is :" + gpa);
+        return gpa;
     }
 
 }

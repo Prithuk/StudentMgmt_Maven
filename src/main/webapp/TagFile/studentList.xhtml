@@ -8,6 +8,24 @@
     <ui:define name="content" >
         <center><h2><h:outputText value="Student Records"/></h2></center>
 
+        <h:form> 
+            <p:outputLabel for="searchstudent" style="width:100px" 
+                           styleClass="p-d-block" value="Search Grade :" />
+            <p:inputText id="searchstudent"
+                         value="#{studentControllerWeb.student.grade}" 
+                         required="true" class="form-control" >
+            </p:inputText>
+
+
+            <p:commandButton value="Search" 
+                             actionListener="#{studentControllerWeb.searchStudentByGrade()}" 
+                             styleClass="ui-button-raised ui-button-success" 
+                             >
+            </p:commandButton>
+
+
+        </h:form>
+
 
         <h:form id="studentForm">
             <div class="card crud-demo">

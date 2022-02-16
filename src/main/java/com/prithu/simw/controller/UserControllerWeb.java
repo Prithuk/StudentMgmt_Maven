@@ -76,11 +76,40 @@ public class UserControllerWeb implements Serializable {
         FacesContext.getCurrentInstance().
                 addMessage(null, new FacesMessage("User is updated successfully"));
         loadData();
-
     }
 
     public void deleteUser(User user) {
         userRepository.deleteUser(user);
         loadData();
     }
+
+    public String validateUser() {
+        if (!user.getName().isEmpty()) {
+            User usr = userRepository.findByUserName(user.getName());
+            if (usr == null) {
+                System.out.println("Check1");
+                return "loginpage.xhtml";
+            }
+            if (usr.getPassword().equals(user.getPassword())) {
+                System.out.println("Check2");
+                return "index.xhtml";
+            }
+        }
+        System.out.println("Main Check");
+        return "loginpage.xhtml";
+    }
+
+    public void searchUser() {
+        if (!user.getName().isEmpty()) {
+            User userList1 = userRepository.searchUser(user.getName());
+
+            if (userList1 == null) {
+                System.out.println("User not found");
+            } else {
+                System.out.println("User is found");
+                System.out.println(userList1.toString());
+            }
+        }
+    }
+
 }

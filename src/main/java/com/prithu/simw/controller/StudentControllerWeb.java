@@ -42,8 +42,6 @@ public class StudentControllerWeb implements Serializable {
         this.student = student;
     }
 
-   
-
     @PostConstruct
     public void init() {
         studentList = new ArrayList<>();
@@ -84,4 +82,16 @@ public class StudentControllerWeb implements Serializable {
         loadStudentData();
     }
 
+    public void searchStudentByGrade() {
+        if (student.getGrade() != null) {
+            List<Student> studentList = studentRepository.searchStudentGrade(student.getGrade());
+
+            if (studentList == null || studentList.isEmpty()) {
+                System.out.println("Grade not found");
+            } else {
+                System.out.println("Grade Found");
+                System.out.println(studentList.toString());
+            }
+        }
+    }
 }

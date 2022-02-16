@@ -35,7 +35,6 @@ public class StudentRepository {
     }
 
     public void addNewStudent(Student student) {
-
         this.entityManager.persist(student);
         entityManager.flush();
     }
@@ -52,5 +51,17 @@ public class StudentRepository {
     public void deleteStudent(Student student) {
         getEntityManager().remove(getEntityManager().merge(student));
         getEntityManager().flush();
+    }
+
+    public List<Student> searchStudentGrade(Integer grade) {
+        List<Student> studentList = new ArrayList<>();
+        try {
+            Query query = entityManager.createQuery("select s from Student s where s.grade=:studentclass", Student.class);
+            query.setParameter("studentclass", grade);
+            studentList = query.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return studentList;
     }
 }

@@ -13,8 +13,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /*
  */
@@ -31,12 +34,12 @@ public class Student implements Serializable {
     private String sname;
 
     @NotNull(message = "Grade is required")
-    @Size(max = 2, min = 1, message = "Only 2 integers are accepted")
     private Integer grade;
+    
     @NotNull(message = "Email is required")
     private String email;
+    
     @NotNull(message = "Phone is required")
-    @Size(max = 10, min = 10, message = "Only10 digits of phone are accepted")
     private Long phone;
 
     public Student() {
