@@ -61,7 +61,7 @@ public class UserRepository {
     public User findByUserName(String name) {
         User user = null;
         try {
-            Query query = em.createNativeQuery("select u from User u where u.name=:username", User.class);
+            Query query = em.createQuery("select u from User u where u.name=:username", User.class);
             query.setParameter("username", name);
             user = (User) query.getSingleResult();
         } catch (Exception ex) {
@@ -75,7 +75,7 @@ public class UserRepository {
     public User searchUser(String name) {
         User user = null;
         try {
-            Query query = em.createNativeQuery("select us from User us where us.name=:username", User.class);
+            Query query = em.createQuery("select us from User us where us.name=:username", User.class);
             query.setParameter("username", name);
             user = (User) query.getSingleResult();
         } catch (Exception e) {
@@ -83,5 +83,25 @@ public class UserRepository {
             e.printStackTrace();
         }
         return user;
+    }
+
+    public boolean loginControl(String name, String password) {
+        User user = null;
+        try {
+            Query query
+                    = (Query) em.createQuery("select us from User us where us.name=:username "
+                            + "and us.password=:password", User.class)
+                            .setParameter("username", name).
+                            setParameter("password", password).getSingleResult();
+            user = (User) query;
+            if (user != null) {
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            user = null;
+            e.printStackTrace();
+            return false;
+        }
     }
 }

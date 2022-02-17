@@ -16,7 +16,7 @@
                     <p:outputLabel for="lbl_username" style="width:100px" 
                                    styleClass="p-d-block" value="Enter username" />
                     <p:inputText id="lbl_username"
-                                 value="#{userControllerWeb.user.name}" 
+                                 value="#{loginController.username}" 
                                  required="true"
                                  requiredMessage="Name field must not be empty"
                                  class="form-control" >
@@ -25,7 +25,7 @@
                     <h:message for="lbl_username" style="color:red" />
 
                     <p:outputLabel for="inputPassword" style="width:100px" styleClass="p-d-block" value="Enter password" />
-                    <p:password id="inputPassword" value="#{userControllerWeb.user.password}" 
+                    <p:password id="inputPassword" value="#{loginController.password}" 
                                 required="true"
                                 feedback="true"
                                 inline="true"
@@ -38,7 +38,7 @@
                     <br /> 
 
                     <p:commandButton value="Sign In" icon="pi pi-sign-in" ajax="false"
-                                     action="#{userControllerWeb.validateUser()}"
+                                     action="#{loginController.loginControl()}"
                                      />
                 </h:panelGrid>
             </center>
