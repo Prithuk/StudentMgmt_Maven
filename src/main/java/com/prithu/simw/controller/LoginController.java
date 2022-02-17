@@ -5,6 +5,7 @@
  */
 package com.prithu.simw.controller;
 
+import com.prithu.sim.dto.Login;
 import com.prithu.sim.repository.UserRepository;
 import com.prithu.sim.filter.SessionUtils;
 import java.io.Serializable;
@@ -22,37 +23,29 @@ import javax.servlet.http.HttpSession;
 @SessionScoped
 public class LoginController implements Serializable {
 
-    private String username;
-    private String password;
     private final UserRepository userRepository = new UserRepository();
+    private Login login;
 
-    public String loginControl() {
+    public Login getLogin() {
+        return login;
+    }
 
-        if (userRepository.loginControl(username, password)) {
+    public void setLogin(Login login) {
+        this.login = login;
+    }
+    
+
+    public void loginControl() {
+
+        if (userRepository.loginControl(login.getUsername(), login.getPassword())) {
             HttpSession session = SessionUtils.getSession();
-            session.setAttribute("username", username);
-            return "index.xhtml";
+            session.setAttribute("username", login.getUsername());
+            doRedirect("index.xhtml");
         }
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
                 "Incorrect Username and Passowrd", "Username or password incorrect"));
-        return "loginpage.xhtml";
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+        doRedirect("logipage.xhtml");
     }
 
     // logout event, invalidate session
@@ -60,5 +53,14 @@ public class LoginController implements Serializable {
         HttpSession session = SessionUtils.getSession();
         session.invalidate();
         return "loginpage.xhtml";
+    }
+
+    private void doRedirect(String url) {
+        try {
+            FacesContext fc = FacesContext.getCurrentInstance();
+            fc.getExternalContext().redirect(url);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 }

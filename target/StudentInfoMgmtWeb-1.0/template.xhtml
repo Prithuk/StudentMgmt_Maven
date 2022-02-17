@@ -13,6 +13,7 @@
     </h:head>
 
     <h:body>
+        <f:event listener="#{loginController.loginControl()}" type="preRenderView" /> 
         <pe:layout fullPage="true"  options="#{mainLayout.layoutOptions}" >
             <pe:layoutPane position="north">
                 <ui:insert name="top" >

@@ -1,12 +1,17 @@
-<?xml version='1.0' encoding='UTF-8' ?> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
-
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui" 
+                template="../template.xhtml"> 
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+        <f:metadata>
+            <f:event listener="#{loginController.loginControl()}" type="preRenderView" /> 
+        </f:metadata>   
     </h:head>
 
     <h:body>
@@ -16,7 +21,7 @@
                     <p:outputLabel for="lbl_username" style="width:100px" 
                                    styleClass="p-d-block" value="Enter username" />
                     <p:inputText id="lbl_username"
-                                 value="#{loginController.username}" 
+                                 value="#{loginController.login.username}" 
                                  required="true"
                                  requiredMessage="Name field must not be empty"
                                  class="form-control" >
@@ -25,7 +30,7 @@
                     <h:message for="lbl_username" style="color:red" />
 
                     <p:outputLabel for="inputPassword" style="width:100px" styleClass="p-d-block" value="Enter password" />
-                    <p:password id="inputPassword" value="#{loginController.password}" 
+                    <p:password id="inputPassword" value="#{loginController.login.password}" 
                                 required="true"
                                 feedback="true"
                                 inline="true"
@@ -44,4 +49,4 @@
             </center>
         </h:form>
     </h:body> 
-</html>
+</ui:composition>
