@@ -58,11 +58,12 @@ public class LoginController implements Serializable {
                 sessionUtils.setUser(user);
                 return "index.xhtml";
             }
-        } 
+        }
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                "Incorrect Username and Passowrd", "Username or password incorrect"));
-        return "loginpage.xhtml";
+        context.addMessage("loginpage", new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                "Incorrect Username and Password", "Username or password incorrect"));
+        return null;
+
     }
 
     public String logout() {
