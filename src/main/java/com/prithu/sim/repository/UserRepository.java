@@ -6,6 +6,7 @@
 package com.prithu.sim.repository;
 
 import com.prithu.sim.dto.User;
+import com.prithu.sim.security.SHA1Encrypter;
 import java.util.ArrayList;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class UserRepository {
 
     @PersistenceContext(unitName = "simDS")
     private EntityManager em;
+    SHA1Encrypter a1Encrypter;
 
     protected EntityManager getEntityManager() {
         return em;
@@ -36,9 +38,9 @@ public class UserRepository {
     }
 
     public void addNewUser(User user) {
-
         this.em.persist(user);
         em.flush();
+
     }
 
     public User findById(Long id) {

@@ -1,5 +1,6 @@
 com/prithu/sim/dao/SubjectDao.class
 com/prithu/sim/repository/SubjectRepository.class
+com/prithu/sim/security/SHA1Encrypter.class
 com/prithu/sim/repository/StudentRepository.class
 com/prithu/simw/controller/LoginController.class
 com/prithu/sim/repository/MarksRepository.class

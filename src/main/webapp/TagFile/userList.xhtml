@@ -134,6 +134,14 @@
                     </p:password> 
 
                     <br> </br>
+                    <p:commandButton value="Save" icon="pi pi-check" 
+                                     action="#{userControllerWeb.addUser()}"
+                                     class="btn btn-success btnWidth"
+                                     styleClass="btn btn-success btnSpace"
+                                     oncomplete="if (args &amp;&amp; !args.validationFailed) PF('userRegisterDialog').hide()"
+                                     rendered="#{empty userControllerWeb.user.id}" 
+                                     update="userForm" process="@this"
+                                     />
 
                     <p:commandButton value="Update" icon="pi pi-check" 
                                      action="#{userControllerWeb.editUser()}" 

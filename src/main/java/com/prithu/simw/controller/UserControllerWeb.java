@@ -7,6 +7,7 @@ package com.prithu.simw.controller;
 
 import com.prithu.sim.dto.User;
 import com.prithu.sim.repository.UserRepository;
+import com.prithu.sim.security.SHA1Encrypter;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +62,8 @@ public class UserControllerWeb implements Serializable {
     }
 
     public void addUser() {
+        String enc = SHA1Encrypter.getEncrypted(user.getPassword());
+        user.setPassword(enc);
         userRepository.addNewUser(user);
         this.user = new User();
         loadData();
