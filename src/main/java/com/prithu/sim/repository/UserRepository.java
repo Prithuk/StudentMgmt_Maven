@@ -87,13 +87,12 @@ public class UserRepository {
         return user;
     }
 
-    public User loginControlValidate(String name, String password) {
+    public User loginControlValidate(String name) {
         User user = null;
         try {
-            Query query = em.createQuery("select us from User us where us.name=:username "
-                    + "and us.password=:password", User.class)
-                    .setParameter("username", name).
-                    setParameter("password", password);
+            Query query = em.createQuery("select us from User us where us.name=:username ", User.class)
+                    .setParameter("username", name);
+
             user = (User) query.getSingleResult();
 
         } catch (Exception e) {

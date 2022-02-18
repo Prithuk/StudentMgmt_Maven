@@ -9,6 +9,7 @@ import com.prithu.sim.dto.Login;
 import com.prithu.sim.dto.User;
 import com.prithu.sim.repository.UserRepository;
 import com.prithu.sim.filter.SessionUtils;
+import com.prithu.sim.security.SHA1Encrypter;
 import java.io.Serializable;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -48,25 +49,27 @@ public class LoginController implements Serializable {
     }
 
     public String loginControl() {
-        User user = userRepository.loginControlValidate(login.getUsername(), login.getPassword());
-
+        User user = userRepository.loginControlValidate(login.getUsername());
         if (user != null) {
-            HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext()
-                    .getSession(false);
-            putUser(user, session);
-            sessionUtils.setUser(user);
-            return "index.xhtml";
-//            doRedirect("index.xhtml");
-        }
+            if (SHA1Encrypter.isEqual(login.getPassword(), user.getPassword())) {
+                HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext()
+                        .getSession(false);
+                putUser(user, session);
+                sessionUtils.setUser(user);
+                return "index.xhtml";
+            }
+        } 
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
                 "Incorrect Username and Passowrd", "Username or password incorrect"));
         return "loginpage.xhtml";
-//        doRedirect("loginpage.xhtml");
     }
 
     public String logout() {
         User u = sessionUtils.getUser();
+        if (u == null) {
+            return "loginpage.xhtml?faces-redirect=true";
+        }
         Map<String, Object> appMap = FacesContext.getCurrentInstance().getExternalContext().getApplicationMap();
         HttpSession session = (HttpSession) appMap.get(String.valueOf(u.getId()));
         if (session != null) {
