@@ -6,7 +6,6 @@
         <param-value>Production</param-value>
     </context-param>
     
-    
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -21,6 +20,14 @@
             30
         </session-timeout>
     </session-config>
+    <context-param>
+        <param-name>com.sun.faces.enableRestoreView11Compatibility</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <error-page>
+        <exception-type>javax.faces.application.ViewExpiredException</exception-type>
+        <location>/login.xhtml?faces-redirect=true</location>
+    </error-page>
     <welcome-file-list>
         <welcome-file>faces/loginpage.xhtml</welcome-file>
     </welcome-file-list>

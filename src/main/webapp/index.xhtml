@@ -7,7 +7,9 @@
                 template="template.xhtml">
 
     <ui:define name="content">
-        Hello from Facelets, this is first jsf applications
+        Hello from Facelets
+
+        <h1> Welcome <p:outputLabel value="#{sessionUtils.user.name}" /> </h1>
 
     </ui:define>
 

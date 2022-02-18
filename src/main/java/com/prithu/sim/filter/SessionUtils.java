@@ -5,43 +5,27 @@
  */
 package com.prithu.sim.filter;
 
-import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import com.prithu.sim.dto.User;
+import java.io.Serializable;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
 
 /**
  *
  * @author lion
  */
-
-
+@Named
 @SessionScoped
-public class SessionUtils {
+public class SessionUtils implements Serializable {
 
-    public static HttpSession getSession() {
-        return (HttpSession) FacesContext.getCurrentInstance()
-                .getExternalContext().getSession(false);
+    private User user;
+
+    public User getUser() {
+        return user;
     }
 
-    public static HttpServletRequest getRequest() {
-        return (HttpServletRequest) FacesContext.getCurrentInstance()
-                .getExternalContext().getRequest();
-    }
-
-    public static String getUserName() {
-        HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
-                .getExternalContext().getSession(false);
-        return session.getAttribute("username").toString();
-    }
-
-    public static String getUserId() {
-        HttpSession session = getSession();
-        if (session != null) {
-            return (String) session.getAttribute("id");
-        } else {
-            return null;
-        }
+    public void setUser(User user) {
+        this.user = user;
     }
 
 }

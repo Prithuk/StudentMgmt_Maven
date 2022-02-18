@@ -9,16 +9,15 @@
 
     <h:form id="topmenu">
         <center>
-            <h:panelGrid columns="5" >
-                <div class="card">
-                    <p:commandButton value="User" ajax="false" action="/faces/TagFile/userList.xhtml?faces-redirect=true" />
-                    <p:commandButton value="Student" ajax="false" action="/faces/TagFile/studentList.xhtml?faces-redirect=true" />
-                    <p:commandButton value="Subject" ajax="false" action="/faces/TagFile/subjectList.xhtml?faces-redirect=true"  />
-                    <p:commandButton value="Marks" ajax="false" action="/faces/TagFile/markList.xhtml?faces-redirect=true"  />
+            <h:panelGrid columns="6" >
+                <p:commandButton value="User" ajax="false" action="/faces/TagFile/userList.xhtml?faces-redirect=true" />
+                <p:commandButton value="Student" ajax="false" action="/faces/TagFile/studentList.xhtml?faces-redirect=true" />
+                <p:commandButton value="Subject" ajax="false" action="/faces/TagFile/subjectList.xhtml?faces-redirect=true"  />
+                <p:commandButton value="Marks" ajax="false" action="/faces/TagFile/markList.xhtml?faces-redirect=true"  />
+                <p:commandButton value="Logout" ajax="false" action="#{loginController.logout()}" />
 
-                </div>
             </h:panelGrid>
         </center>
-
     </h:form>
+
 </ui:composition>
