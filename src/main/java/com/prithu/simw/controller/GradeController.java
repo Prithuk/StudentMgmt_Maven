@@ -7,6 +7,7 @@ package com.prithu.simw.controller;
 
 import com.prithu.sim.dto.Grade;
 import com.prithu.sim.repository.GradeRepository;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -22,7 +23,7 @@ import javax.inject.Named;
  */
 @ViewScoped
 @Named
-public class GradeController {
+public class GradeController implements Serializable {
 
     private List<Grade> gradeList;
     private Grade grade;
@@ -86,4 +87,5 @@ public class GradeController {
         loadData();
     }
 
+    
 }

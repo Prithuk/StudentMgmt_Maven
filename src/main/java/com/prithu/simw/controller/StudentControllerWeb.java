@@ -2,6 +2,7 @@ package com.prithu.simw.controller;
 
 import com.prithu.sim.dto.Grade;
 import com.prithu.sim.dto.Student;
+import com.prithu.sim.repository.GradeRepository;
 import com.prithu.sim.repository.StudentRepository;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -29,6 +30,9 @@ public class StudentControllerWeb implements Serializable {
 
     @Inject
     private StudentRepository studentRepository;
+
+    @Inject
+    private GradeRepository gradeRepository;
 
     public List<Student> getStudentList() {
         return studentList;
@@ -61,13 +65,13 @@ public class StudentControllerWeb implements Serializable {
     public void setGradeList(List<Grade> gradeList) {
         this.gradeList = gradeList;
     }
-    
 
     @PostConstruct
     public void init() {
         studentList = new ArrayList<>();
         student = new Student();
         grade = new Grade();
+        gradeList = gradeRepository.getAllGradeFromDB();
         loadStudentData();
 
     }
@@ -112,7 +116,7 @@ public class StudentControllerWeb implements Serializable {
             return;
         }
         studentList = studentRepository.searchStudentByGrade(grade);
-
+        System.out.println(studentList);
     }
 
     public void listStudentGrade() {

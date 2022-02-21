@@ -8,37 +8,9 @@
     <ui:define name="content" >
         <center><h2><h:outputText value="Student Records"/></h2></center>
 
-        <h:form> 
-            <p:outputLabel for="som_grade" style="width:100px" 
-                           styleClass="p-d-block" value="Choose Grade :" />
-            <p:selectOneMenu id="som_grade" value="#{studentControllerWeb.grade}" 
-                             label="Choose Grade"
-                             alwaysDisplayLabel="true">
-                <f:selectItems value="#{studentControllerWeb.student.grade}"/>
-            </p:selectOneMenu>
-
-
-            <p:commandButton value="Search" 
-                             actionListener="#{studentControllerWeb.searchStudentByGrade()}" 
-                             styleClass="ui-button-raised ui-button-success" 
-                             >
-            </p:commandButton>
-
-            <br />
-
-
-
-
-        </h:form>
-
-
-
-
         <h:form id="gradeForm">
             <div class="card crud-demo">
                 <p:growl id="messages" showDetail="true"/>
-
-
                 <center> 
                     <p:commandButton value="New Grade" icon="pi pi-plus" 
                                      oncomplete="PF('gradeRegDialog').show()"
@@ -139,7 +111,7 @@
                                      styleClass="btn btn-success btnSpace" 
                                      oncomplete="if (args &amp;&amp; !args.validationFailed) PF('gradeRegDialog').hide()"
                                      rendered="#{not empty gradeController.grade.id}" 
-                                     update="gradeForm" process="@this"
+                                     update="gradeForm @this" process="@this"
                                      />
                     <p:commandButton value="Cancel" icon="pi pi-times" 
                                      oncomplete="PF('gradeRegDialog').hide()"

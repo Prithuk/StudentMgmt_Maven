@@ -12,25 +12,30 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
+@Table(name = "grade")
 public class Grade implements Serializable {
 
     @Id
     @Basic(optional = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
+
+    @NotNull(message = "Class name is required")
     private String name;
 
     public Grade() {
 
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -44,9 +49,9 @@ public class Grade implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 67 * hash + this.id;
-        hash = 67 * hash + Objects.hashCode(this.name);
+        int hash = 3;
+        hash = 97 * hash + Objects.hashCode(this.id);
+        hash = 97 * hash + Objects.hashCode(this.name);
         return hash;
     }
 
@@ -62,10 +67,10 @@ public class Grade implements Serializable {
             return false;
         }
         final Grade other = (Grade) obj;
-        if (this.id != other.id) {
+        if (!Objects.equals(this.name, other.name)) {
             return false;
         }
-        if (!Objects.equals(this.name, other.name)) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
@@ -75,5 +80,4 @@ public class Grade implements Serializable {
     public String toString() {
         return "Grade{" + "id=" + id + ", name=" + name + '}';
     }
-
 }

@@ -3,7 +3,8 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:p="http://primefaces.org/ui" template="../template.xhtml">
+                xmlns:p="http://primefaces.org/ui" 
+                template="../template.xhtml">
 
     <ui:define name="content" >
         <center><h2><h:outputText value="Student Records"/></h2></center>
@@ -11,24 +12,32 @@
         <h:form> 
             <p:outputLabel for="som_grade" style="width:100px" 
                            styleClass="p-d-block" value="Choose Grade :" />
-            <p:selectOneMenu id="som_grade" value="#{studentControllerWeb.grade}" 
-                             label="Choose Grade"
-                             alwaysDisplayLabel="true">
-                <f:selectItems value="#{studentControllerWeb.student.grade}"/>
+            <p:selectOneMenu id="som_grade"  
+                             converter="gradeConverter"
+                             value="#{studentControllerWeb.grade}" 
+                             required="true"
+                             >
+                <f:selectItem itemLabel="Select Class" 
+                              itemValue="" 
+                              noSelectionOption="true" />
+                <f:selectItems value="#{studentControllerWeb.gradeList}"
+                               var="grd" 
+                               itemLabel="#{grd.name}" itemValue="#{grd}"
+                               />
+                <p:ajax update="@this" process="@this" />
             </p:selectOneMenu>
 
 
             <p:commandButton value="Search" 
+                             id="srh_std"
                              actionListener="#{studentControllerWeb.searchStudentByGrade()}" 
                              styleClass="ui-button-raised ui-button-success" 
+                             update=":studentForm:studentTable"
+                             process="@this"
+                             
                              >
             </p:commandButton>
-
             <br />
-
-
-
-
         </h:form>
 
 
@@ -81,7 +90,9 @@
 
                     <p:column>
                         <f:facet name="header">Class</f:facet>
-                        <h:outputText value="#{student.grade}" />
+                        <h:outputText value="#{student.grade.name}" />
+
+
                     </p:column>
 
                     <p:column>
@@ -143,14 +154,26 @@
                     </p:inputText>
                     <p:message id="umsg" for="usernameAdd" />
 
-                    <p:outputLabel for="gradeadd"  style="width:100px" 
+                    <p:outputLabel for="stu_grade"  style="width:100px" 
                                    styleClass="p-d-block" >Student Class :</p:outputLabel>
-                    <p:inputNumber id="gradeadd" decimalPlaces="0"
-                                   value="#{studentControllerWeb.student.grade}" 
-                                   required="true" class="form-control" >
+
+                    <p:selectOneMenu id="stu_grade"     
+                                     value="#{studentControllerWeb.student.grade}" 
+                                     required="true"
+                                     requiredMessage="Please select grade"
+                                     >
+                        <f:selectItem itemLabel="Select Class" 
+                                      itemValue="" 
+                                      noSelectionOption="true" />
+                        <f:selectItems value="#{studentControllerWeb.gradeList}"
+                                       var="grd" 
+                                       itemLabel="#{grd.name}"
+                                       itemValue="#{grd}"
+                                       />
+                        <f:converter converterId="gradeConverter" />
                         <p:ajax update="@this" process="@this" />
-                    </p:inputNumber>
-                    <p:message for="gradeadd" />
+                    </p:selectOneMenu>
+                    <p:message for="stu_grade" />
 
 
                     <p:outputLabel for="emailadd"  style="width:100px" 

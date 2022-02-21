@@ -132,5 +132,4 @@ public class Student implements Serializable {
     public String toString() {
         return "Student{" + "sid=" + sid + ", sname=" + sname + ", grade=" + grade + ", email=" + email + ", phone=" + phone + '}';
     }
-
 }
