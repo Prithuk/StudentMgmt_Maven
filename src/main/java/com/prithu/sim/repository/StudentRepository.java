@@ -5,6 +5,7 @@
  */
 package com.prithu.sim.repository;
 
+import com.prithu.sim.dto.Grade;
 import com.prithu.sim.dto.Student;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +54,7 @@ public class StudentRepository {
         getEntityManager().flush();
     }
 
-    public List<Student> searchStudentGrade(Integer grade) {
+    public List<Student> searchStudentByGrade(Grade grade) {
         List<Student> studentList = new ArrayList<>();
         try {
             Query query = entityManager.createQuery("select s from Student s where s.grade=:studentclass", Student.class);
@@ -64,4 +65,5 @@ public class StudentRepository {
         }
         return studentList;
     }
+
 }

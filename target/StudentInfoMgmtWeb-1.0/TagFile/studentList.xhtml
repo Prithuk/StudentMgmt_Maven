@@ -9,12 +9,13 @@
         <center><h2><h:outputText value="Student Records"/></h2></center>
 
         <h:form> 
-            <p:outputLabel for="searchstudent" style="width:100px" 
-                           styleClass="p-d-block" value="Search Grade :" />
-            <p:inputText id="searchstudent"
-                         value="#{studentControllerWeb.student.grade}" 
-                         required="true" class="form-control" >
-            </p:inputText>
+            <p:outputLabel for="som_grade" style="width:100px" 
+                           styleClass="p-d-block" value="Choose Grade :" />
+            <p:selectOneMenu id="som_grade" value="#{studentControllerWeb.grade}" 
+                             label="Choose Grade"
+                             alwaysDisplayLabel="true">
+                <f:selectItems value="#{studentControllerWeb.student.grade}"/>
+            </p:selectOneMenu>
 
 
             <p:commandButton value="Search" 
@@ -23,8 +24,14 @@
                              >
             </p:commandButton>
 
+            <br />
+
+
+
 
         </h:form>
+
+
 
 
         <h:form id="studentForm">
@@ -42,7 +49,6 @@
                                      resetValues="true"
                                      >
                     </p:commandButton>
-
 
                 </center>
 

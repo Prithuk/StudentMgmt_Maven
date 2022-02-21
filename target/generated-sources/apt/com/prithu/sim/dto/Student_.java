@@ -10,7 +10,7 @@ public abstract class Student_ {
 
 	public static volatile SingularAttribute<Student, Long> phone;
 	public static volatile SingularAttribute<Student, String> sname;
-	public static volatile SingularAttribute<Student, Integer> grade;
+	public static volatile SingularAttribute<Student, Grade> grade;
 	public static volatile SingularAttribute<Student, String> email;
 	public static volatile SingularAttribute<Student, Long> sid;
 

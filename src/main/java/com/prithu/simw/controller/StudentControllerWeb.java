@@ -1,5 +1,6 @@
 package com.prithu.simw.controller;
 
+import com.prithu.sim.dto.Grade;
 import com.prithu.sim.dto.Student;
 import com.prithu.sim.repository.StudentRepository;
 import java.io.Serializable;
@@ -21,7 +22,10 @@ import javax.inject.Named;
 public class StudentControllerWeb implements Serializable {
 
     private List<Student> studentList;
+    private List<Grade> gradeList;
+
     private Student student;
+    private Grade grade;
 
     @Inject
     private StudentRepository studentRepository;
@@ -42,10 +46,28 @@ public class StudentControllerWeb implements Serializable {
         this.student = student;
     }
 
+    public Grade getGrade() {
+        return grade;
+    }
+
+    public void setGrade(Grade grade) {
+        this.grade = grade;
+    }
+
+    public List<Grade> getGradeList() {
+        return gradeList;
+    }
+
+    public void setGradeList(List<Grade> gradeList) {
+        this.gradeList = gradeList;
+    }
+    
+
     @PostConstruct
     public void init() {
         studentList = new ArrayList<>();
         student = new Student();
+        grade = new Grade();
         loadStudentData();
 
     }
@@ -83,15 +105,18 @@ public class StudentControllerWeb implements Serializable {
     }
 
     public void searchStudentByGrade() {
-        if (student.getGrade() != null) {
-            List<Student> studentList = studentRepository.searchStudentGrade(student.getGrade());
+        studentList = new ArrayList<>();
 
-            if (studentList == null || studentList.isEmpty()) {
-                System.out.println("Grade not found");
-            } else {
-                System.out.println("Grade Found");
-                System.out.println(studentList.toString());
-            }
+        if (grade == null) {
+            studentList = new ArrayList<>();
+            return;
         }
+        studentList = studentRepository.searchStudentByGrade(grade);
+
+    }
+
+    public void listStudentGrade() {
+        studentList = studentRepository.searchStudentByGrade(grade);
+
     }
 }

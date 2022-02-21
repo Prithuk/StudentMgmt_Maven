@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui" template="../template.xhtml">
+
+    <ui:define name="content" >
+        <center><h2><h:outputText value="Student Records"/></h2></center>
+
+        <h:form> 
+            <p:outputLabel for="som_grade" style="width:100px" 
+                           styleClass="p-d-block" value="Choose Grade :" />
+            <p:selectOneMenu id="som_grade" value="#{studentControllerWeb.grade}" 
+                             label="Choose Grade"
+                             alwaysDisplayLabel="true">
+                <f:selectItems value="#{studentControllerWeb.student.grade}"/>
+            </p:selectOneMenu>
+
+
+            <p:commandButton value="Search" 
+                             actionListener="#{studentControllerWeb.searchStudentByGrade()}" 
+                             styleClass="ui-button-raised ui-button-success" 
+                             >
+            </p:commandButton>
+
+            <br />
+
+
+
+
+        </h:form>
+
+
+
+
+        <h:form id="gradeForm">
+            <div class="card crud-demo">
+                <p:growl id="messages" showDetail="true"/>
+
+
+                <center> 
+                    <p:commandButton value="New Grade" icon="pi pi-plus" 
+                                     oncomplete="PF('gradeRegDialog').show()"
+                                     update="dialogForm" process="@this"
+                                     styleClass="ui-button-success" 
+                                     style="margin-right: .5rem"
+                                     actionListener="#{gradeController.beforeCreate()}"
+                                     resetValues="true"
+                                     >
+                    </p:commandButton>
+
+                </center>
+
+            </div>
+            <center> 
+                <p:dataTable id="gradeTable"  
+                             value="#{gradeController.gradeList}" 
+                             filteredValue="#{gradeController.gradeList}"
+                             emptyMessage="No Student found with given criteria"
+                             var="grade" 
+                             showGridlines="true"
+                             paginator="true" rows="10"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink}
+                             {PreviousPageLink} {PageLinks} {NextPageLink}
+                             {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15"
+                             paginatorPosition="top"
+                             >
+
+                    <p:column>
+                        <f:facet name="header">Grade ID</f:facet>
+                        <h:outputText value="#{grade.id}" />
+                    </p:column>
+
+                    <p:column filterBy="#{grade.name}"
+                              sortBy="#{grade.name}" >
+                        <f:facet name="header">Grade Name</f:facet>
+                        <h:outputText value="#{grade.name}" />
+                    </p:column>
+
+
+                    <p:column>
+                        <f:facet name="header">ACTION</f:facet>
+                        <p:commandButton value="edit" 
+                                         oncomplete="PF('gradeRegDialog').show()" 
+                                         actionListener="#{gradeController.beforeEdit(grade.id)}" 
+                                         styleClass="ui-button-raised ui-button-success" 
+                                         update="dialogForm" process="@this"
+                                         >
+                        </p:commandButton> 
+                        <p:commandButton value="delete" 
+                                         action="#{gradeController.deleteGrade(grade)}" 
+                                         update="@form" process="@this"
+                                         > 
+                        </p:commandButton>
+
+
+                    </p:column>
+
+                </p:dataTable>
+            </center>
+        </h:form>
+
+
+    </ui:define> 
+
+    <ui:define name="modelDialog" > 
+
+        <p:dialog header="Grade Registration" showEffect="fade" modal="true"
+                  dynamic="true" closable="true" closeOnEscape="true"
+                  widgetVar="gradeRegDialog" responsive="true" appendTo="@(body)">
+
+            <h:form id='dialogForm'>
+                <p:messages id="allmsg" />
+                <h:panelGrid columns="3">
+                    <p:outputLabel for="grade_add" style="width:100px" 
+                                   styleClass="p-d-block" value="Grade name :" />
+                    <p:inputText id="grade_add"
+                                 value="#{gradeController.grade.name}" 
+                                 required="true" class="form-control" >
+                        <p:ajax update="@this umsg allmsg" process="@this" />
+                    </p:inputText>
+                    <p:message id="umsg" for="grade_add" />
+
+
+                    <p:commandButton value="Save" icon="pi pi-check" 
+                                     action="#{gradeController.addGrade()}"
+                                     class="btn btn-success btnWidth"
+                                     styleClass="btn btn-success btnSpace"
+                                     oncomplete="if (args &amp;&amp; !args.validationFailed) PF('gradeRegDialog').hide()"
+                                     rendered="#{empty gradeController.grade.id}" 
+                                     update="gradeForm" process="@this"
+                                     />
+
+                    <p:commandButton value="Update" icon="pi pi-check" 
+                                     action="#{gradeController.editGrade()}" 
+                                     class="btn btn-success btnWidth" 
+                                     styleClass="btn btn-success btnSpace" 
+                                     oncomplete="if (args &amp;&amp; !args.validationFailed) PF('gradeRegDialog').hide()"
+                                     rendered="#{not empty gradeController.grade.id}" 
+                                     update="gradeForm" process="@this"
+                                     />
+                    <p:commandButton value="Cancel" icon="pi pi-times" 
+                                     oncomplete="PF('gradeRegDialog').hide()"
+                                     class="ui-button-secondary"
+                                     update="gradeForm" process="@this"
+                                     />
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+    </ui:define>
+
+</ui:composition>
+

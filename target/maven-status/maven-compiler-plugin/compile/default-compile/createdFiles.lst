@@ -1,3 +1,4 @@
+com/prithu/sim/repository/GradeRepository.class
 com/prithu/sim/dao/SubjectDao.class
 com/prithu/sim/repository/SubjectRepository.class
 com/prithu/sim/security/SHA1Encrypter.class
@@ -13,9 +14,12 @@ com/prithu/sim/dto/Marks_.class
 com/prithu/simw/controller/SubjectControllerWeb.class
 com/prithu/sim/dto/Student_.class
 com/prithu/sim/dto/User.class
+com/prithu/sim/dto/Grade_.class
+com/prithu/sim/dto/Grade.class
 com/prithu/sim/dto/Student.class
 com/prithu/simw/controller/UserControllerWeb.class
 com/prithu/sim/dto/Login.class
+com/prithu/simw/controller/GradeController.class
 com/prithu/sim/vo/ResultVo.class
 com/prithu/sim/repository/UserRepository.class
 com/prithu/sim/converter/StudentConverter.class
