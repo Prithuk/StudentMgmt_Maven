@@ -73,7 +73,7 @@ public class MarksControllerWeb implements Serializable {
     }
 
     public void addMarks() {
-        marksRepository.addNewMarks(marks);
+        marksRepository.addNew(marks);
         this.marks = new Marks();
         loadMarks();
     }
@@ -84,14 +84,14 @@ public class MarksControllerWeb implements Serializable {
     }
 
     public void editMarks() {
-        marksRepository.editMarks(marks);
+        marksRepository.edit(marks);
         FacesContext.getCurrentInstance().
                 addMessage(null, new FacesMessage("Marks is updated successfully"));
         loadMarks();
     }
 
     public void deleteStudent(Marks marks) {
-        marksRepository.deleteMarks(marks);
+        marksRepository.delete(marks);
         loadMarks();
     }
 

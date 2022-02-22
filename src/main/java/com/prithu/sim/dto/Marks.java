@@ -7,23 +7,14 @@ package com.prithu.sim.dto;
 
 import java.io.Serializable;
 import java.util.Objects;
-import javax.persistence.Basic;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "marks")
-public class Marks implements Serializable {
-
-    @Id
-    @Basic(optional = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Marks extends AbstractEntity implements Serializable {
 
     private Double subMarks;
 
@@ -38,21 +29,10 @@ public class Marks implements Serializable {
     public Marks() {
     }
 
-    public Marks(Long id, Double subMarks, Subject subject, Student student) {
-        this.id = id;
+    public Marks(Double subMarks, Subject subject, Student student) {
         this.subMarks = subMarks;
         this.subject = subject;
         this.student = student;
-    }
-    
-    
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Double getSubMarks() {
@@ -82,7 +62,6 @@ public class Marks implements Serializable {
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 73 * hash + Objects.hashCode(this.id);
         hash = 73 * hash + Objects.hashCode(this.subMarks);
         hash = 73 * hash + Objects.hashCode(this.subject);
         hash = 73 * hash + Objects.hashCode(this.student);
@@ -101,9 +80,7 @@ public class Marks implements Serializable {
             return false;
         }
         final Marks other = (Marks) obj;
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
+
         if (!Objects.equals(this.subMarks, other.subMarks)) {
             return false;
         }
@@ -118,7 +95,7 @@ public class Marks implements Serializable {
 
     @Override
     public String toString() {
-        return "Marks{" + "id=" + id + ", subMarks=" + subMarks + ", subject=" + subject + ", student=" + student + '}';
+        return "Marks{" + "id=" + super.getId() + ", subMarks=" + subMarks + ", subject=" + subject + ", student=" + student + '}';
     }
 
 }

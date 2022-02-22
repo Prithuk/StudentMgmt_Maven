@@ -15,11 +15,16 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 @Stateless
-public class StudentRepository {
+public class StudentRepository extends AbstractRepository<Student> {
 
     @PersistenceContext(unitName = "simDS")
     private EntityManager entityManager;
 
+    public StudentRepository() {
+        super(Student.class);
+    }
+
+    @Override
     protected EntityManager getEntityManager() {
         return entityManager;
     }
@@ -33,25 +38,6 @@ public class StudentRepository {
             ex.printStackTrace();
         }
         return studentList;
-    }
-
-    public void addNewStudent(Student student) {
-        this.entityManager.persist(student);
-        entityManager.flush();
-    }
-
-    public Student findById(Long id) {
-        return entityManager.find(Student.class, id);
-    }
-
-    public void editStudent(Student student) {
-        entityManager.merge(student);
-        entityManager.flush();
-    }
-
-    public void deleteStudent(Student student) {
-        getEntityManager().remove(getEntityManager().merge(student));
-        getEntityManager().flush();
     }
 
     public List<Student> searchStudentByGrade(Grade grade) {

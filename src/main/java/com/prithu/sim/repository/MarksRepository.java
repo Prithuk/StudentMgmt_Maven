@@ -8,12 +8,12 @@ package com.prithu.sim.repository;
 import com.prithu.sim.dto.Marks;
 import com.prithu.sim.dto.Student;
 import com.prithu.sim.vo.ResultVo;
-import com.prithu.simw.controller.MarksControllerWeb;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -23,23 +23,33 @@ import javax.persistence.Query;
  * @author lion
  */
 @Stateless
-public class MarksRepository {
+public class MarksRepository extends AbstractRepository<Marks> {
 
     @PersistenceContext(unitName = "simDS")
     private EntityManager entityManager;
 
+    public MarksRepository() {
+        super(Marks.class);
+    }
+
+    @Override
     protected EntityManager getEntityManager() {
         return entityManager;
     }
-    static MarksControllerWeb marksController = new MarksControllerWeb();
-    SubjectRepository subjectRepository;
+
+    @Inject
+    private SubjectRepository subjectRepository;
     List<MarksRepository> marksRepositorys = new ArrayList<>();
 
-    public MarksRepository() {
-        subjectRepository = new SubjectRepository();
-
-    }
-
+    /**
+     *
+     * @return
+     */
+//    public MarksRepository() {
+//        subjectRepository = new SubjectRepository();
+//        super(Marks.class); 
+//
+//    }
     public SubjectRepository getSubjectRepository() {
         return subjectRepository;
     }
@@ -64,33 +74,13 @@ public class MarksRepository {
     public List<Marks> getByStudent(Student student) {
         List<Marks> marksList = new ArrayList<>();
         try {
-            Query query = entityManager.createQuery("select m from Marks m where m.student.sid=:student", Marks.class);
-            query.setParameter("student", student.getSid());
+            Query query = entityManager.createQuery("select m from Marks m where m.student.id=:student", Marks.class);
+            query.setParameter("student", student.getId());
             marksList = query.getResultList();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         return marksList;
-    }
-
-    public void addNewMarks(Marks marks) {
-
-        this.entityManager.persist(marks);
-        entityManager.flush();
-    }
-
-    public Marks findById(Long id) {
-        return entityManager.find(Marks.class, id);
-    }
-
-    public void editMarks(Marks marks) {
-        entityManager.merge(marks);
-        entityManager.flush();
-    }
-
-    public void deleteMarks(Marks marks) {
-        getEntityManager().remove(getEntityManager().merge(marks));
-        getEntityManager().flush();
     }
 
     public ResultVo displayInfo(Student student) {
@@ -143,7 +133,7 @@ public class MarksRepository {
     public List<Long> getUnqSubjectsForStd(Student student, List<Marks> marksList) {
         List<Long> subjectList = new ArrayList<>();
         for (Marks m : marksList) {
-            if (m.getStudent().equals(student.getSid()) && !subjectList.contains(m.getSubject().getId())) {
+            if (m.getStudent().equals(student.getId()) && !subjectList.contains(m.getSubject().getId())) {
                 subjectList.add(m.getSubject().getId());
             }
         }
@@ -153,8 +143,8 @@ public class MarksRepository {
     public List<Long> getUnqStudents(List<Marks> marksList) {
         List<Long> stds = new ArrayList<>();
         for (Marks m : marksList) {
-            if (!stds.contains(m.getStudent().getSid())) {
-                stds.add(m.getStudent().getSid());
+            if (!stds.contains(m.getStudent().getId())) {
+                stds.add(m.getStudent().getId());
             }
         }
         return stds;
@@ -165,7 +155,7 @@ public class MarksRepository {
         List<Long> students = getUnqStudents(marks);
         for (Long std : students) {
             Student student = new Student();
-            student.setSid(std);
+            student.setId(std);
             studentSubMap.put(std, getUnqSubjectsForStd(student, marks));
         }
         return studentSubMap;

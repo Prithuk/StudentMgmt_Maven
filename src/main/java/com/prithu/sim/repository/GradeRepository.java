@@ -14,11 +14,16 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 @Stateless
-public class GradeRepository {
+public class GradeRepository extends AbstractRepository<Grade> {
 
     @PersistenceContext(unitName = "simDS")
     private EntityManager entityManager;
 
+    public GradeRepository() {
+        super(Grade.class);
+    }
+
+    @Override
     protected EntityManager getEntityManager() {
         return entityManager;
     }
@@ -32,25 +37,6 @@ public class GradeRepository {
             ex.printStackTrace();
         }
         return gradeList;
-    }
-
-    public void addNewGrade(Grade grade) {
-        this.entityManager.persist(grade);
-        entityManager.flush();
-    }
-
-    public Grade findById(Long id) {
-        return entityManager.find(Grade.class, id);
-    }
-
-    public void editGrade(Grade grade) {
-        entityManager.merge(grade);
-        entityManager.flush();
-    }
-
-    public void deleteGrade(Grade grade) {
-        getEntityManager().remove(getEntityManager().merge(grade));
-        getEntityManager().flush();
     }
 
     public List<Grade> searchGradeByName(String name) {

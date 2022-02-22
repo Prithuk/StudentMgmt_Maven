@@ -7,11 +7,7 @@ package com.prithu.sim.dto;
 
 import java.io.Serializable;
 import java.util.Objects;
-import javax.persistence.Basic;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -22,12 +18,8 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "student")
-public class Student implements Serializable {
+public class Student extends AbstractEntity implements Serializable {
 
-    @Id
-    @Basic(optional = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long sid;
     @NotNull(message = "Name is required")
     @Size(min = 4, message = "At least enter four characters")
     private String sname;
@@ -45,14 +37,6 @@ public class Student implements Serializable {
 
     public Student() {
 
-    }
-
-    public Long getSid() {
-        return sid;
-    }
-
-    public void setSid(Long sid) {
-        this.sid = sid;
     }
 
     public String getSname() {
@@ -90,7 +74,6 @@ public class Student implements Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 59 * hash + Objects.hashCode(this.sid);
         hash = 59 * hash + Objects.hashCode(this.sname);
         hash = 59 * hash + Objects.hashCode(this.grade);
         hash = 59 * hash + Objects.hashCode(this.email);
@@ -116,9 +99,7 @@ public class Student implements Serializable {
         if (!Objects.equals(this.email, other.email)) {
             return false;
         }
-        if (!Objects.equals(this.sid, other.sid)) {
-            return false;
-        }
+
         if (!Objects.equals(this.grade, other.grade)) {
             return false;
         }
@@ -130,6 +111,6 @@ public class Student implements Serializable {
 
     @Override
     public String toString() {
-        return "Student{" + "sid=" + sid + ", sname=" + sname + ", grade=" + grade + ", email=" + email + ", phone=" + phone + '}';
+        return "Student{" + "sid=" + super.getId() + ", sname=" + sname + ", grade=" + grade + ", email=" + email + ", phone=" + phone + '}';
     }
 }

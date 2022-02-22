@@ -11,6 +11,7 @@
 /home/lion/NetBeansProjects/StudentInfoMgmtWeb/src/main/java/com/prithu/sim/dto/Subject.java
 /home/lion/NetBeansProjects/StudentInfoMgmtWeb/src/main/java/com/prithu/sim/repository/GradeRepository.java
 /home/lion/NetBeansProjects/StudentInfoMgmtWeb/src/main/java/com/prithu/sim/security/SHA1Encrypter.java
+/home/lion/NetBeansProjects/StudentInfoMgmtWeb/src/main/java/com/prithu/sim/dto/AbstractEntity.java
 /home/lion/NetBeansProjects/StudentInfoMgmtWeb/src/main/java/com/prithu/sim/repository/MarksRepository.java
 /home/lion/NetBeansProjects/StudentInfoMgmtWeb/target/generated-sources/apt/com/prithu/sim/dto/Grade_.java
 /home/lion/NetBeansProjects/StudentInfoMgmtWeb/src/main/java/com/prithu/sim/repository/SubjectRepository.java
@@ -25,6 +26,7 @@
 /home/lion/NetBeansProjects/StudentInfoMgmtWeb/src/main/java/com/prithu/simw/controller/StudentControllerWeb.java
 /home/lion/NetBeansProjects/StudentInfoMgmtWeb/src/main/java/com/prithu/sim/dto/Grade.java
 /home/lion/NetBeansProjects/StudentInfoMgmtWeb/src/main/java/com/prithu/sim/vo/ResultVo.java
+/home/lion/NetBeansProjects/StudentInfoMgmtWeb/target/generated-sources/apt/com/prithu/sim/dto/AbstractEntity_.java
 /home/lion/NetBeansProjects/StudentInfoMgmtWeb/src/main/java/com/prithu/simw/controller/MainLayout.java
 /home/lion/NetBeansProjects/StudentInfoMgmtWeb/target/generated-sources/apt/com/prithu/sim/dto/User_.java
 /home/lion/NetBeansProjects/StudentInfoMgmtWeb/src/main/java/com/prithu/sim/filter/MyListener.java
@@ -33,6 +35,7 @@
 /home/lion/NetBeansProjects/StudentInfoMgmtWeb/src/main/java/com/prithu/simw/controller/MarksControllerWeb.java
 /home/lion/NetBeansProjects/StudentInfoMgmtWeb/src/main/java/com/prithu/sim/dto/Login.java
 /home/lion/NetBeansProjects/StudentInfoMgmtWeb/src/main/java/com/prithu/simw/controller/SubjectControllerWeb.java
+/home/lion/NetBeansProjects/StudentInfoMgmtWeb/src/main/java/com/prithu/sim/repository/AbstractRepository.java
 /home/lion/NetBeansProjects/StudentInfoMgmtWeb/target/generated-sources/apt/com/prithu/sim/dto/Marks_.java
 /home/lion/NetBeansProjects/StudentInfoMgmtWeb/src/main/java/com/prithu/sim/dao/MarksDaoImpl.java
 /home/lion/NetBeansProjects/StudentInfoMgmtWeb/src/main/java/com/prithu/simw/controller/UserControllerWeb.java

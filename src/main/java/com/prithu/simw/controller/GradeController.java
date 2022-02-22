@@ -65,7 +65,7 @@ public class GradeController implements Serializable {
     }
 
     public void addGrade() {
-        gradeRepository.addNewGrade(grade);
+        gradeRepository.addNew(grade);
         this.grade = new Grade();
         loadData();
     }
@@ -76,16 +76,15 @@ public class GradeController implements Serializable {
     }
 
     public void editGrade() {
-        gradeRepository.editGrade(grade);
+        gradeRepository.edit(grade);
         FacesContext.getCurrentInstance().
                 addMessage(null, new FacesMessage("Grade is updated successfully"));
         loadData();
     }
 
     public void deleteGrade(Grade grade) {
-        gradeRepository.deleteGrade(grade);
+        gradeRepository.delete(grade);
         loadData();
     }
 
-    
 }

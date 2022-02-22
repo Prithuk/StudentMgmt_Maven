@@ -50,7 +50,7 @@ public class StudentConverter implements Converter {
         if (!(value instanceof Student)) {
             return null;
         }
-        String s = String.valueOf(((Student) value).getSid());
+        String s = String.valueOf(((Student) value).getId());
 
         return s;
     }

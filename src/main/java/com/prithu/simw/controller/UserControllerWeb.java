@@ -64,7 +64,7 @@ public class UserControllerWeb implements Serializable {
     public void addUser() {
         String enc = SHA1Encrypter.getEncrypted(user.getPassword());
         user.setPassword(enc);
-        userRepository.addNewUser(user);
+        userRepository.addNew(user);
         this.user = new User();
         loadData();
     }
@@ -75,14 +75,14 @@ public class UserControllerWeb implements Serializable {
     }
 
     public void editUser() {
-        userRepository.editUser(user);
+        userRepository.edit(user);
         FacesContext.getCurrentInstance().
                 addMessage(null, new FacesMessage("User is updated successfully"));
         loadData();
     }
 
     public void deleteUser(User user) {
-        userRepository.deleteUser(user);
+        userRepository.delete(user);
         loadData();
     }
 

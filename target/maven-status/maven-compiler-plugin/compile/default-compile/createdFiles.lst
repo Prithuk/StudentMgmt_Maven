@@ -18,6 +18,7 @@ com/prithu/sim/dto/User.class
 com/prithu/sim/dto/Grade_.class
 com/prithu/sim/dto/Grade.class
 com/prithu/sim/dto/Student.class
+com/prithu/sim/dto/AbstractEntity.class
 com/prithu/simw/controller/UserControllerWeb.class
 com/prithu/sim/dto/Login.class
 com/prithu/simw/controller/GradeController.class
@@ -27,7 +28,9 @@ com/prithu/sim/converter/StudentConverter.class
 com/prithu/simw/controller/MainLayout.class
 com/prithu/sim/converter/SubjectConverter.class
 com/prithu/sim/dto/User_.class
+com/prithu/sim/dto/AbstractEntity_.class
 com/prithu/sim/filter/SessionUtils.class
 com/prithu/sim/dao/UserDao.class
+com/prithu/sim/repository/AbstractRepository.class
 com/prithu/sim/dto/Subject.class
 com/prithu/simw/controller/StudentControllerWeb.class

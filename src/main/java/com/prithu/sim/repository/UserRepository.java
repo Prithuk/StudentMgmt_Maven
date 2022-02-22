@@ -6,7 +6,6 @@
 package com.prithu.sim.repository;
 
 import com.prithu.sim.dto.User;
-import com.prithu.sim.security.SHA1Encrypter;
 import java.util.ArrayList;
 
 import java.util.List;
@@ -16,12 +15,16 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 @Stateless
-public class UserRepository {
+public class UserRepository extends AbstractRepository<User> {
 
     @PersistenceContext(unitName = "simDS")
     private EntityManager em;
-    SHA1Encrypter a1Encrypter;
 
+    public UserRepository() {
+        super(User.class);
+    }
+
+    @Override
     protected EntityManager getEntityManager() {
         return em;
     }
@@ -35,29 +38,6 @@ public class UserRepository {
             ex.printStackTrace();
         }
         return userList;
-    }
-
-    public void addNewUser(User user) {
-        this.em.persist(user);
-        em.flush();
-
-    }
-
-    public User findById(Long id) {
-
-        return em.find(User.class, id);
-
-    }
-
-    public void editUser(User user) {
-        em.merge(user);
-        em.flush();
-
-    }
-
-    public void deleteUser(User user) {
-        getEntityManager().remove(getEntityManager().merge(user));
-        getEntityManager().flush();
     }
 
     public User findByUserName(String name) {

@@ -18,11 +18,16 @@ import javax.persistence.Query;
  * @author lion
  */
 @Stateless
-public class SubjectRepository {
+public class SubjectRepository extends AbstractRepository<Subject> {
 
     @PersistenceContext(unitName = "simDS")
     private EntityManager em;
 
+    public SubjectRepository() {
+        super(Subject.class);
+    }
+
+    @Override
     protected EntityManager getEntityManager() {
         return em;
     }
@@ -36,29 +41,6 @@ public class SubjectRepository {
             ex.printStackTrace();
         }
         return subjectList;
-    }
-
-    public void addNewSubject(Subject subject) {
-
-        this.em.persist(subject);
-        em.flush();
-    }
-
-    public Subject findById(Long id) {
-
-        return em.find(Subject.class, id);
-
-    }
-
-    public void editSubject(Subject subject) {
-        em.merge(subject);
-        em.flush();
-
-    }
-
-    public void deleteSubject(Subject subject) {
-        getEntityManager().remove(getEntityManager().merge(subject));
-        getEntityManager().flush();
     }
 
 }

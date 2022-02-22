@@ -7,34 +7,18 @@ package com.prithu.sim.dto;
 
 import java.io.Serializable;
 import java.util.Objects;
-import javax.persistence.Basic;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "subject")
-public class Subject implements Serializable {
+public class Subject extends AbstractEntity implements Serializable {
 
-    @Id
-    @Basic(optional = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     @NotNull(message = "Subject is required")
     private String subName;
 
     public Subject() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getSubName() {
@@ -48,7 +32,6 @@ public class Subject implements Serializable {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 59 * hash + Objects.hashCode(this.id);
         hash = 59 * hash + Objects.hashCode(this.subName);
         return hash;
     }
@@ -68,15 +51,13 @@ public class Subject implements Serializable {
         if (!Objects.equals(this.subName, other.subName)) {
             return false;
         }
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
+
         return true;
     }
 
     @Override
     public String toString() {
-        return "Subject{" + "id=" + id + ", subName=" + subName + '}';
+        return "Subject{" + "id=" + super.getId() + ", subName=" + subName + '}';
     }
 
 }

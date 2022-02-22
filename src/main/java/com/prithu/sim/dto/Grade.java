@@ -7,36 +7,19 @@ package com.prithu.sim.dto;
 
 import java.io.Serializable;
 import java.util.Objects;
-import javax.persistence.Basic;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "grade")
-public class Grade implements Serializable {
-
-    @Id
-    @Basic(optional = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Grade extends AbstractEntity implements Serializable {
 
     @NotNull(message = "Class name is required")
     private String name;
 
     public Grade() {
 
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -50,7 +33,6 @@ public class Grade implements Serializable {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 97 * hash + Objects.hashCode(this.id);
         hash = 97 * hash + Objects.hashCode(this.name);
         return hash;
     }
@@ -70,14 +52,12 @@ public class Grade implements Serializable {
         if (!Objects.equals(this.name, other.name)) {
             return false;
         }
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
+
         return true;
     }
 
     @Override
     public String toString() {
-        return "Grade{" + "id=" + id + ", name=" + name + '}';
+        return "Grade{" + "id=" + super.getId() + ", name=" + name + '}';
     }
 }

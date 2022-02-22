@@ -73,7 +73,7 @@ public class SubjectControllerWeb implements Serializable {
     }
 
     public void addSubject() {
-        subjectRepository.addNewSubject(subject);
+        subjectRepository.addNew(subject);
         this.subject = new Subject();
         loadData();
     }
@@ -84,14 +84,14 @@ public class SubjectControllerWeb implements Serializable {
     }
 
     public void editSubject() {
-        subjectRepository.editSubject(subject);
+        subjectRepository.edit(subject);
         FacesContext.getCurrentInstance().
                 addMessage(null, new FacesMessage("Subject is updated successfully"));
         loadData();
     }
 
     public void deleteSubject(Subject subject) {
-        subjectRepository.deleteSubject(subject);
+        subjectRepository.delete(subject);
         loadData();
     }
 

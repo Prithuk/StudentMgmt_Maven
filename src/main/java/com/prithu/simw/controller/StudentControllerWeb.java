@@ -86,7 +86,7 @@ public class StudentControllerWeb implements Serializable {
     }
 
     public void addStudent() {
-        studentRepository.addNewStudent(student);
+        studentRepository.addNew(student);
         this.student = new Student();
         loadStudentData();
     }
@@ -97,14 +97,14 @@ public class StudentControllerWeb implements Serializable {
     }
 
     public void editStudent() {
-        studentRepository.editStudent(student);
+        studentRepository.edit(student);
         FacesContext.getCurrentInstance().
                 addMessage(null, new FacesMessage("Student is updated successfully"));
         loadStudentData();
     }
 
     public void deleteStudent(Student student) {
-        studentRepository.deleteStudent(student);
+        studentRepository.delete(student);
         loadStudentData();
     }
 
