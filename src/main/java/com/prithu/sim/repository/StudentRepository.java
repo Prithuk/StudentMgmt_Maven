@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 @Stateless
-public class StudentRepository extends AbstractRepository<Student> {
+public class StudentRepository extends AbstractUserTrackerRepository<Student> {
 
     @PersistenceContext(unitName = "simDS")
     private EntityManager entityManager;

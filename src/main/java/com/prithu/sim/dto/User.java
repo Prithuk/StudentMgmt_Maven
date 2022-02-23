@@ -14,9 +14,8 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "user_info")
-public class User extends AbstractEntity implements Serializable {
+public class User extends AbstractTimeTracker implements Serializable {
 
-    
     @NotNull(message = "Name is required")
     @Size(min = 4, message = "Name should at least be 4 characters long")
     private String name;

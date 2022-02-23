@@ -9,7 +9,6 @@ import com.prithu.sim.dto.Login;
 import com.prithu.sim.dto.User;
 import com.prithu.sim.repository.UserRepository;
 import com.prithu.sim.filter.SessionUtils;
-import com.prithu.sim.message.FaceMessages;
 import com.prithu.sim.security.SHA1Encrypter;
 import java.io.Serializable;
 import java.util.Map;
@@ -31,9 +30,6 @@ public class LoginController implements Serializable {
 
     @Inject
     SessionUtils sessionUtils;
-
-    @Inject
-    FacesMessage facesMessage;
 
     private static final Logger LOG = Logger.getLogger(LoginController.class.getName());
 
