@@ -48,23 +48,9 @@ public class UserRepository extends AbstractRepository<User> {
             user = (User) query.getSingleResult();
         } catch (Exception ex) {
             user = null;
-            ex.printStackTrace();
         }
         return user;
 
-    }
-
-    public User searchUser(String name) {
-        User user = null;
-        try {
-            Query query = em.createQuery("select us from User us where us.name=:username", User.class);
-            query.setParameter("username", name);
-            user = (User) query.getSingleResult();
-        } catch (Exception e) {
-            user = null;
-            e.printStackTrace();
-        }
-        return user;
     }
 
     public User loginControlValidate(String name) {

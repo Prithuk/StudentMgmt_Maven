@@ -104,7 +104,7 @@ public class UserControllerWeb implements Serializable {
 
     public void searchUser() {
         if (!user.getName().isEmpty()) {
-            User userList1 = userRepository.searchUser(user.getName());
+            User userList1 = userRepository.findByUserName(user.getName());
 
             if (userList1 == null) {
                 System.out.println("User not found");
