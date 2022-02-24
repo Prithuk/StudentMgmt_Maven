@@ -23,7 +23,7 @@ import javax.persistence.Query;
  * @author lion
  */
 @Stateless
-public class MarksRepository extends AbstractRepository<Marks> {
+public class MarksRepository extends AbstractUserTrackerRepository<Marks> {
 
     @PersistenceContext(unitName = "simDS")
     private EntityManager entityManager;

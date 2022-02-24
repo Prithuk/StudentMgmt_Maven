@@ -6,7 +6,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 
 @Generated(value = "org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor")
 @StaticMetamodel(Marks.class)
-public abstract class Marks_ extends com.prithu.sim.dto.AbstractEntity_ {
+public abstract class Marks_ extends com.prithu.sim.dto.AbstractUserTracker_ {
 
 	public static volatile SingularAttribute<Marks, Double> subMarks;
 	public static volatile SingularAttribute<Marks, Student> student;

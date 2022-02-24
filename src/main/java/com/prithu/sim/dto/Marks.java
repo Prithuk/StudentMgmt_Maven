@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "marks")
-public class Marks extends AbstractEntity implements Serializable {
+public class Marks extends AbstractUserTracker implements Serializable {
 
     private Double subMarks;
 

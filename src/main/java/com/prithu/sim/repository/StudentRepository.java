@@ -13,6 +13,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import org.primefaces.model.LazyDataModel;
 
 @Stateless
 public class StudentRepository extends AbstractUserTrackerRepository<Student> {
@@ -23,6 +24,7 @@ public class StudentRepository extends AbstractUserTrackerRepository<Student> {
     public StudentRepository() {
         super(Student.class);
     }
+    private LazyDataModel<Student> dataModel;
 
     @Override
     protected EntityManager getEntityManager() {
@@ -50,6 +52,19 @@ public class StudentRepository extends AbstractUserTrackerRepository<Student> {
             e.printStackTrace();
         }
         return studentList;
+    }
+
+    public List<Student> lazyload(int offset, int pageSize) {
+        List<Student> students = new ArrayList<>();
+        Query query = entityManager.createQuery("select s from Student s ", Student.class);
+        students = query.setMaxResults(pageSize).setFirstResult(offset).getResultList();
+        return students;
+    }
+
+    public int count() {
+        Query query = entityManager.createQuery("select count(s) from Student s", Long.class);
+        Long c = (Long) query.getSingleResult();
+        return c == null ? 0 : c.intValue();
     }
 
 }
