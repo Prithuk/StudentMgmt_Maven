@@ -29,7 +29,7 @@
         <location>/login.xhtml?faces-redirect=true</location>
     </error-page>
     <welcome-file-list>
-        <welcome-file>faces/loginpage.xhtml</welcome-file>
+        <welcome-file>faces/userList.xhtml</welcome-file>
     </welcome-file-list>
     
     
